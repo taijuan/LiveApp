@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <SurfaceView
+            android:id="@+id/pushView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fitsSystemWindows="true">
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
+                    android:layout_width="42dp"
+                    android:layout_height="220dp"
+                    app:qmui_backgroundColor="#66000000"
+                    app:qmui_radius="21dp">
+
+                <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                        android:id="@+id/btnBack"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="21dp"
+                        android:src="@drawable/hk_back"
+                        android:tint="@color/backgroundWhite" />
+
+                <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                        android:id="@+id/btnFlash"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/hk_flash"
+                        android:tint="@color/backgroundWhite" />
+
+                <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                        android:id="@+id/btnCameraSwitch"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginBottom="21dp"
+                        android:src="@drawable/hk_camera_switch"
+                        android:tint="@color/backgroundWhite" />
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
+        </FrameLayout>
+
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                android:id="@+id/btnStartPush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_margin="16dp"
+                android:src="@drawable/hk_live_play"
+                android:tint="@color/textRed"
+                android:visibility="visible" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                android:id="@+id/btnStopPush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_margin="16dp"
+                android:src="@drawable/hk_live_play"
+                android:tint="@color/textBlue"
+                android:visibility="gone" />
+
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+</merge>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAudioRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/sampling_rate"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioRate44100"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_rate_44100_0hz"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAudioRate" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioRate48000"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_rate_48000_0hz"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAudioRate44100" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAudioBitrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/bitrate"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAudioRate48000" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioBitrateMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_bitrate_medium_64kbps"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAudioBitrate" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioBitrateHigh"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_bitrate_high_128kbps"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAudioBitrateMedium" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioBitrateExcellent"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_bitrate_excellent_192kbps"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAudioBitrateHigh" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBitDepth"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_bit_depth"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/btnAudioBitrateExcellent" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnBitDepth"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_bit_16bit"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBitDepth" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAudioFormat"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/encode_format"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/btnBitDepth" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioFormat"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_format_aac"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAudioFormat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

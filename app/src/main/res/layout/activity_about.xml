@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvVersionName"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/backgroundWhite"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/version"
+                android:textColor="@color/textBlack"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/tvEmailName"
+                app:layout_constraintRight_toRightOf="@+id/tvEmailName"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvVersionValue"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/backgroundWhite"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center_vertical"
+                android:textColor="@color/textGray"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@+id/tvVersionName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1.1.0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEmailName"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:background="@color/backgroundWhite"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/contact_us"
+                android:textColor="@color/textBlack"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tvEmailValue"
+                app:layout_constraintTop_toBottomOf="@+id/tvVersionName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEmailValue"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:background="@color/backgroundWhite"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center_vertical"
+                android:text="@string/contact_email"
+                android:textColor="@color/textGray"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@+id/tvEmailName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVersionName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

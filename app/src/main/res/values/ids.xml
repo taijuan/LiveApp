@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="id_back">0x01</integer>
+    <integer name="id_home">0x02</integer>
+    <integer name="id_save">0x03</integer>
+    <integer name="id_add">0x04</integer>
+    <integer name="id_next">0x05</integer>
+    <integer name="id_done">0x06</integer>
+</resources>

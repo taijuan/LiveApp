@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <com.live.widget.QMUIConstraintLayout
+                    android:id="@+id/btnStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/backgroundWhite"
+                    app:qmui_radius="8dp">
+
+                <com.qmuiteam.qmui.widget.QMUIFloatLayout
+                        android:id="@+id/qmFloatStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvStyle"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:qmui_childHorizontalSpacing="12dp"
+                        app:qmui_childVerticalSpacing="10dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="29dp"
+                        android:layout_marginBottom="12dp"
+                        android:drawableEnd="@drawable/hk_next"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/style"
+                        android:textColor="@color/textBlack"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+            </com.live.widget.QMUIConstraintLayout>
+
+            <com.live.widget.QMUIConstraintLayout
+                    android:id="@+id/btnVideoQuality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/backgroundWhite"
+                    app:qmui_radius="8dp">
+
+                <com.qmuiteam.qmui.widget.QMUIFloatLayout
+                        android:id="@+id/qmFloatVideoQuality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvVideoQuality"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:qmui_childHorizontalSpacing="12dp"
+                        app:qmui_childVerticalSpacing="10dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvVideoQuality"
+                        android:layout_width="0dp"
+                        android:layout_height="29dp"
+                        android:layout_marginBottom="12dp"
+                        android:drawableEnd="@drawable/hk_next"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/video_quality"
+                        android:textColor="@color/textBlack"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+            </com.live.widget.QMUIConstraintLayout>
+
+            <com.live.widget.QMUIConstraintLayout
+                    android:id="@+id/btnAudioQuality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/backgroundWhite"
+                    app:qmui_radius="8dp">
+
+                <com.qmuiteam.qmui.widget.QMUIFloatLayout
+                        android:id="@+id/qmFloatAudioQuality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvAudioQuality"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:qmui_childHorizontalSpacing="12dp"
+                        app:qmui_childVerticalSpacing="10dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAudioQuality"
+                        android:layout_width="0dp"
+                        android:layout_height="29dp"
+                        android:layout_marginBottom="12dp"
+                        android:drawableEnd="@drawable/hk_next"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/audio_quality"
+                        android:textColor="@color/textBlack"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+            </com.live.widget.QMUIConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:fitsSystemWindows="true"
+            android:fontFamily="@font/lato_semibold"
+            android:text="@string/create_account"
+            android:textColor="@color/textBlack"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/textInputEmail"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            app:hintTextAppearance="@style/LoginHintTextAppearance"
+            app:layout_constraintBottom_toTopOf="@+id/textInputName">
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/hk_edit_background"
+                android:hint="@string/email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:textAppearance="@style/LoginTextAppearance" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputName"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:paddingTop="8dp"
+            app:hintTextAppearance="@style/LoginHintTextAppearance"
+            app:layout_constraintBottom_toTopOf="@+id/textInputPassword">
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/hk_edit_background"
+                android:hint="@string/name"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:textAppearance="@style/LoginTextAppearance" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:paddingTop="8dp"
+            app:hintTextAppearance="@style/LoginHintTextAppearance"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:passwordToggleEnabled="true">
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editPassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/hk_edit_background"
+                android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:textAppearance="@style/LoginTextAppearance" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:paddingTop="8dp"
+            app:hintTextAppearance="@style/LoginHintTextAppearance"
+            app:layout_constraintTop_toBottomOf="@+id/textInputPassword"
+            app:passwordToggleEnabled="true">
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/ConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/hk_edit_background"
+                android:hint="@string/confirm_password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:textAppearance="@style/LoginTextAppearance" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+            android:id="@+id/btnSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="48dp"
+            android:src="@drawable/hk_btn_login"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputConfirmPassword" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:fontFamily="@font/lato_semibold"
+            android:text="@string/sign_up"
+            android:textColor="@color/textBlack"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnSignUp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnSignUp" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/btnSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="60dp"
+            android:fontFamily="@font/lato_semibold"
+            android:text="@string/sign_in"
+            android:textColor="@color/textBlue"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

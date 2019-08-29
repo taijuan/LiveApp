@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:fitsSystemWindows="true">
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                android:id="@+id/tvAccount"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/backgroundWhite"
+                android:drawableEnd="@drawable/hk_next"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/account"
+                android:textColor="@color/textBlack"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                android:id="@+id/tvOptions"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@color/backgroundWhite"
+                android:drawableEnd="@drawable/hk_next"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/default_options"
+                android:textColor="@color/textBlack"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/tvAccount" />
+
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                android:id="@+id/tvLogOut"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/backgroundWhite"
+                android:drawableEnd="@drawable/hk_next"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/log_out"
+                android:textColor="@color/textRed"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/tvOptions" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

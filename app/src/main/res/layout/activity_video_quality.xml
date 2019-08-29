@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvResolution"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/resolution"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnHD"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/hd_1280_750"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvResolution" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnFHD"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/fhd_1920_1080"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnHD" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAudioBitrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/frame_rate"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnFHD" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btn30Fps"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/_30_0fps_for_ntsc"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAudioBitrate" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btn25Fps"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/_25_0fps_for_pal"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btn30Fps" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBitrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/bitrate"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/btn25Fps" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/medium_800kbps"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBitrate" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnHigh"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/high_1200kbps"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMedium" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnExcellent"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/excellent_1500kbps"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnHigh" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvEncodeFormat"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/encode_format"
+                    android:textColor="@color/textBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/btnExcellent" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnEncodeFormat"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/h_264_baseline"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEncodeFormat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

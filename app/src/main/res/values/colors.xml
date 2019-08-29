@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    //背景颜色
+    <color name="backgroundWhite">#FFFFFFFF</color>
+    <color name="backgroundGray">#FFF3F3F3</color>
+    <color name="backgroundStrongGray">#FFEDEDED</color>
+    <color name="backgroundBlue">#FF2E70C8</color>
+    <color name="backgroundBlack">#FF000000</color>
+
+    //字体颜色
+    <color name="textBlue">#FF2E70C8</color>
+    <color name="textBlack">#FF4B4B4B</color>
+    <color name="textGray">#FFA0A0A0</color>
+    <color name="textRed">#FFE46868</color>
+    <color name="textWhite">#FFFFFFFF</color>
+    //分割线颜色
+    <color name="lineGray">#FFD1D1D1</color>
+    <color name="lineBlue">#FF2E70C8</color>
+
+</resources>

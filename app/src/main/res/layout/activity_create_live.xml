@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/backgroundWhite"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/title"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLength="50"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/textBlack"
+                    android:textColorHint="@color/textGray"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/hk_line_padding_20"
+                    app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="143dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/backgroundWhite"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="start"
+                    android:hint="@string/description"
+                    android:imeOptions="actionNone"
+                    android:inputType="text|textMultiLine"
+                    android:maxLength="200"
+                    android:paddingStart="20dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="@color/textBlack"
+                    android:textColorHint="@color/textGray"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/backgroundWhite"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/event_category"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLength="50"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/textBlack"
+                    android:textColorHint="@color/textGray"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/hk_line_padding_20"
+                    app:layout_constraintTop_toBottomOf="@+id/etEvent" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etSession"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/backgroundWhite"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/session"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLength="50"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/textBlack"
+                    android:textColorHint="@color/textGray"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/etEvent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/end_time"
+                    android:textColor="@color/textGray"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/etSession" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="0dp"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="34dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_down"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="2019/8/27"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/tvTime"
+                    app:layout_constraintTop_toBottomOf="@+id/etSession" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="0dp"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="34dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_down"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="10:59"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tvDate"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etSession" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/select_title_picture"
+                    android:textColor="@color/textGray"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                    android:id="@+id/btnImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="34dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/backgroundWhite"
+                    android:src="@drawable/hk_play"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="h,335:200"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

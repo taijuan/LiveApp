@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/backgroundWhite" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <solid android:color="@color/backgroundBlue" />
+                    <corners android:bottomLeftRadius="24dp" android:topLeftRadius="24dp" android:topRightRadius="24dp" />
+                </shape>
+            </item>
+        </layer-list>
+
+    </item>
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/backgroundBlue" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <solid android:color="@color/backgroundWhite" />
+                    <corners android:bottomRightRadius="24dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

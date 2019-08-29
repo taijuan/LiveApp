@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.live">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--阿里云直播推流权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!--阿里云直播推流权限-->
+
+    <application
+            android:name=".app.App"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:networkSecurityConfig="@xml/network_security_config"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/WhiteBackgroundTheme"
+            tools:targetApi="n">
+
+        <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+
+        <meta-data
+                android:name="android.max_aspect"
+                android:value="2.34" />
+
+        <meta-data
+                android:name="notch.config"
+                android:value="portrait|landscape" />
+
+        <activity
+                android:name=".WelcomeActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/WelcomeTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+                android:name=".SignInActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/WhiteBackgroundTheme" />
+
+        <activity
+                android:name=".HomeActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+
+        <activity
+                android:name=".SignUpActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/WhiteBackgroundTheme" />
+        <activity
+                android:name=".ForgotPasswordActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".AboutActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".SettingsActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".ProfileActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".HistoryActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".CreateLiveActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".CameraStyleActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".LiveOptionsActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".VideoQualityActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".AudioQualityActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".VideoPlayActivity"
+                android:configChanges="orientation|screenSize|keyboardHidden"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".PushLiveActivity"
+                android:configChanges="orientation|screenSize|keyboardHidden"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".LivePlayActivity"
+                android:configChanges="orientation|screenSize|keyboardHidden"
+                android:screenOrientation="portrait"
+                android:theme="@style/BlackBackgroundTheme" />
+    </application>
+
+</manifest>
