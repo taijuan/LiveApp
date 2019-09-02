@@ -27,11 +27,7 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_push_live)
-        val pushConfig = AlivcLivePushConfig().apply {
-            previewDisplayMode = AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL
-            setAutoFocus(true)
-            this.setConnectRetryCount(10)
-        }
+        val pushConfig = getPushConfig()
         btnBack.onClick({
             pop()
         })
@@ -148,6 +144,91 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
             }
         })
     }
+
+    private fun getPushConfig() = AlivcLivePushConfig().apply {
+        previewDisplayMode = AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL
+        when (intent.getIntExtra(
+            ORIENTATION_KEY,
+            AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT.ordinal
+        )) {
+            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.ordinal -> setPreviewOrientation(
+                AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT
+            )
+            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.ordinal -> setPreviewOrientation(
+                AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT
+            )
+            else -> setPreviewOrientation(
+                AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT
+            )
+        }
+        when (intent.getIntExtra(CAMERA_ID, AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.ordinal)) {
+            AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.ordinal -> setCameraType(
+                AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK
+            )
+            else -> setCameraType(AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT)
+        }
+        when (intent.getIntExtra(RESOLUTION, AlivcResolutionEnum.RESOLUTION_540P.ordinal)) {
+            AlivcResolutionEnum.RESOLUTION_540P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_540P)
+            AlivcResolutionEnum.RESOLUTION_1080P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_1080P)
+            else -> setResolution(AlivcResolutionEnum.RESOLUTION_720P)
+        }
+        qualityMode = when (intent.getIntExtra(
+            QUALITY_MODE,
+            AlivcQualityModeEnum.QM_RESOLUTION_FIRST.ordinal
+        )) {
+            AlivcQualityModeEnum.QM_RESOLUTION_FIRST.ordinal -> AlivcQualityModeEnum.QM_RESOLUTION_FIRST
+            else -> AlivcQualityModeEnum.QM_FLUENCY_FIRST
+        }
+        when (intent.getIntExtra(VIDEO_ENCODE_MODE, AlivcEncodeModeEnum.Encode_MODE_HARD.ordinal)) {
+            AlivcEncodeModeEnum.Encode_MODE_HARD.ordinal -> setVideoEncodeMode(AlivcEncodeModeEnum.Encode_MODE_HARD)
+            else -> setVideoEncodeMode(AlivcEncodeModeEnum.Encode_MODE_SOFT)
+        }
+        beautyLevel = when (intent.getIntExtra(
+            VIDEO_BEAUTY_MODE,
+            AlivcBeautyLevelEnum.BEAUTY_Professional.ordinal
+        )) {
+            AlivcBeautyLevelEnum.BEAUTY_Professional.ordinal -> AlivcBeautyLevelEnum.BEAUTY_Professional
+            else -> AlivcBeautyLevelEnum.BEAUTY_Normal
+        }
+//        const val AUDIO_RATE = "audio rate"
+//        const val AUDIO_ENCODE_MODE = "audio encode mode"
+//        const val AUDIO_FORMAT = "audio format"
+//        const val AUDIO_CHANNEL = "audio channel"
+        when (intent.getIntExtra(
+            AUDIO_RATE,
+            AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_48000.ordinal
+        )) {
+            AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_48000.ordinal -> setAudioSamepleRate(
+                AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_48000
+            )
+            AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_32000.ordinal -> setAudioSamepleRate(
+                AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_32000
+            )
+            else -> setAudioSamepleRate(
+                AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_44100
+            )
+        }
+        when (intent.getIntExtra(AUDIO_ENCODE_MODE, AlivcEncodeModeEnum.Encode_MODE_SOFT.ordinal)) {
+            AlivcEncodeModeEnum.Encode_MODE_SOFT.ordinal -> setAudioEncodeMode(AlivcEncodeModeEnum.Encode_MODE_SOFT)
+            else -> setAudioEncodeMode(AlivcEncodeModeEnum.Encode_MODE_HARD)
+        }
+        when (intent.getIntExtra(AUDIO_CHANNEL, AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO.ordinal)) {
+            AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO.ordinal -> setAudioChannels(
+                AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO
+            )
+            else -> setAudioChannels(AlivcAudioChannelEnum.AUDIO_CHANNEL_ONE)
+        }
+        audioProfile =
+            when (intent.getIntExtra(AUDIO_FORMAT, AlivcAudioAACProfileEnum.HE_AAC.ordinal)) {
+                AlivcAudioAACProfileEnum.HE_AAC.ordinal -> AlivcAudioAACProfileEnum.HE_AAC
+                AlivcAudioAACProfileEnum.HE_AAC_v2.ordinal -> AlivcAudioAACProfileEnum.HE_AAC_v2
+                AlivcAudioAACProfileEnum.AAC_LD.ordinal -> AlivcAudioAACProfileEnum.AAC_LD
+                else -> AlivcAudioAACProfileEnum.AAC_LC
+            }
+        setAutoFocus(true)
+        this.setConnectRetryCount(10)
+    }
+
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)

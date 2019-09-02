@@ -1,5 +1,6 @@
 package com.live.adapter
 
+import android.Manifest
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,7 @@ import com.live.LiveOptionsActivity
 import com.live.PushLiveActivity
 import com.live.R
 import com.live.model.LiveData
+import com.live.permission.request
 import com.live.utils.loadImageCenterCrop
 import com.live.utils.onClick
 import com.live.utils.push
@@ -76,7 +78,15 @@ class MyLiveHolder(parent: ViewGroup) :
         })
         itemView.btnGo.setChangeAlphaWhenPress(true)
         itemView.btnGo.onClick({
-            itemView.push(PushLiveActivity::class.java)
+            itemView.request(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_PHONE_STATE,
+                onGranted = {
+                    itemView.push(PushLiveActivity::class.java)
+                })
         })
     }
 

@@ -18,7 +18,7 @@ const val CAMERA_STYLE_REQUEST_CODE = 1001
 
 class CameraStyleActivity : BaseActivity() {
     private var orientation: Int = AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT.ordinal
-    private var cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.cameraId
+    private var cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.ordinal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_style)
@@ -65,17 +65,17 @@ class CameraStyleActivity : BaseActivity() {
         })
 
         cameraId =
-            intent.getIntExtra(CAMERA_ID, AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.cameraId)
-        tvBackCamera.isSelected = cameraId == AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.cameraId
+            intent.getIntExtra(CAMERA_ID, AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.ordinal)
+        tvBackCamera.isSelected = cameraId == AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.ordinal
         tvFrontCamera.isSelected =
-            cameraId == AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.cameraId
+            cameraId == AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.ordinal
         tvBackCamera.onClick({
-            cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.cameraId
+            cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.ordinal
             tvBackCamera.isSelected = true
             tvFrontCamera.isSelected = false
         })
         tvFrontCamera.onClick({
-            cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.cameraId
+            cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.ordinal
             tvFrontCamera.isSelected = true
             tvBackCamera.isSelected = false
         })

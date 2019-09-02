@@ -13,8 +13,8 @@ import com.live.base.BaseActivity
 import com.live.base.back
 import com.live.base.done
 import com.live.base.title
+import com.live.utils.logE
 import com.live.utils.onClick
-import com.live.utils.push
 import com.live.utils.pushForResult
 import com.qmuiteam.qmui.layout.QMUIButton
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
@@ -22,13 +22,15 @@ import kotlinx.android.synthetic.main.activity_live_options.*
 
 class LiveOptionsActivity : BaseActivity() {
     private var orientation: Int = AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT.ordinal
-    private var cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.cameraId
+    private var cameraId = AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT.ordinal
     private var resolution = AlivcResolutionEnum.RESOLUTION_720P.ordinal
     private var qualityMode = AlivcQualityModeEnum.QM_FLUENCY_FIRST.ordinal
     private var videoEncodeMode = AlivcEncodeModeEnum.Encode_MODE_HARD.ordinal
+    private var videoBeautyMode = AlivcBeautyLevelEnum.BEAUTY_Normal.ordinal
     private var audioRate = AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_44100.ordinal
     private var audioEncodeMode = AlivcEncodeModeEnum.Encode_MODE_SOFT.ordinal
-    private var videoBeautyMode = AlivcBeautyLevelEnum.BEAUTY_Normal.ordinal
+    private var audioChannel = AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO.ordinal
+    private var audioFormat = AlivcAudioAACProfileEnum.HE_AAC.ordinal
     private val layoutParams: ViewGroup.LayoutParams by lazy {
         ViewGroup.LayoutParams(
             -2,
@@ -80,7 +82,15 @@ class LiveOptionsActivity : BaseActivity() {
          */
         btnAudioQuality.setChangeAlphaWhenPress(true)
         btnAudioQuality.onClick({
-            push(AudioQualityActivity::class.java)
+            pushForResult(
+                AudioQualityActivity::class.java,
+                AUDIO_REQUEST_CODE,
+                Bundle().apply {
+                    putInt(AUDIO_RATE, audioRate)
+                    putInt(AUDIO_FORMAT, audioFormat)
+                    putInt(AUDIO_ENCODE_MODE, audioEncodeMode)
+                    putInt(AUDIO_CHANNEL, audioChannel)
+                })
         })
         intent?.setAudioStyle()
     }
@@ -235,6 +245,41 @@ class LiveOptionsActivity : BaseActivity() {
                 layoutParams
             )
         }
+        audioChannel =
+            getIntExtra(AUDIO_CHANNEL, AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO.ordinal)
+        AlivcAudioChannelEnum.AUDIO_CHANNEL_ONE.ordinal.logE("AlivcAudioChannelEnum.AUDIO_CHANNEL_ONE.ordinal  ")
+        AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO.ordinal.logE("AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO.ordinal  ")
+        audioChannel.logE("audioChannel ")
+        when (audioChannel) {
+            AlivcAudioChannelEnum.AUDIO_CHANNEL_ONE.ordinal -> qmFloatAudioQuality.addView(
+                createItem(R.string.audio_channel_mono),
+                layoutParams
+            )
+            AlivcAudioChannelEnum.AUDIO_CHANNEL_TWO.ordinal -> qmFloatAudioQuality.addView(
+                createItem(R.string.audio_channel_double),
+                layoutParams
+            )
+        }
+        audioFormat = getIntExtra(AUDIO_FORMAT, AlivcAudioAACProfileEnum.HE_AAC.ordinal)
+        when (audioFormat) {
+            AlivcAudioAACProfileEnum.AAC_LC.ordinal -> qmFloatAudioQuality.addView(
+                createItem(R.string.audio_format_lc),
+                layoutParams
+            )
+            AlivcAudioAACProfileEnum.HE_AAC.ordinal -> qmFloatAudioQuality.addView(
+                createItem(R.string.audio_format_he),
+                layoutParams
+            )
+            AlivcAudioAACProfileEnum.HE_AAC_v2.ordinal -> qmFloatAudioQuality.addView(
+                createItem(R.string.audio_format_hev2),
+                layoutParams
+            )
+            AlivcAudioAACProfileEnum.AAC_LD.ordinal -> qmFloatAudioQuality.addView(
+                createItem(R.string.audio_format_ld),
+                layoutParams
+            )
+        }
+
 
     }
 

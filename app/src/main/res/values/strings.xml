@@ -60,7 +60,6 @@
     <string name="video_encode_soft">Soft Encode</string>
     <string name="audio_encode_hard">Hard Encode</string>
     <string name="audio_encode_soft">Soft Encode</string>
-    <string name="video_bitrate_1500">1500kbps</string>
     <string name="video_beauty_mode">Beauty Mode</string>
     <string name="video_beauty_normal">Beauty Normal</string>
     <string name="video_beauty_professional">Beauty Professional</string>
@@ -71,8 +70,14 @@
     <string name="audio_bitrate_medium_64kbps">Medium（64kbps）</string>
     <string name="audio_bitrate_high_128kbps">High（128kbps）</string>
     <string name="audio_bitrate_excellent_192kbps">Excellent（192kbps）</string>
-    <string name="audio_bit_depth">Bit Depth</string>
+    <string name="audio_channel">Channel</string>
+    <string name="audio_channel_mono">Mono-Channel</string>
+    <string name="audio_channel_double">Double-Channel</string>
     <string name="audio_bit_16bit">16bit</string>
-    <string name="audio_format_aac">AAC</string>
+    <string name="audio_format_lc">AAC-LC</string>
+    <string name="audio_format_he">HE-AAC</string>
+    <string name="audio_format_hev2">HEV2-AAC</string>
+    <string name="audio_format_ld">AAC-LD</string>
+    <string name="audio_format">Format</string>
 
 </resources>

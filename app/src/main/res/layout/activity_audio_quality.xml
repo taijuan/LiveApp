@@ -119,20 +119,20 @@
 
 
             <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvBitDepth"
+                    android:id="@+id/tvChannel"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center_vertical"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="@string/audio_bit_depth"
+                    android:text="@string/audio_channel"
                     android:textColor="@color/textBlack"
                     android:textSize="18sp"
                     app:layout_constraintTop_toBottomOf="@id/btnAudioSoftEncode" />
 
             <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
-                    android:id="@+id/btnBitDepth"
+                    android:id="@+id/btnChannelMono"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@color/backgroundWhite"
@@ -141,10 +141,25 @@
                     android:gravity="center_vertical"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="@string/audio_bit_16bit"
+                    android:text="@string/audio_channel_mono"
                     android:textColor="@color/textBlack"
                     android:textSize="16sp"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBitDepth" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvChannel" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnChannelDouble"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_channel_double"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnChannelMono" />
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvAudioFormat"
@@ -154,13 +169,13 @@
                     android:gravity="center_vertical"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="@string/video_beauty_mode"
+                    android:text="@string/audio_format"
                     android:textColor="@color/textBlack"
                     android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/btnBitDepth" />
+                    app:layout_constraintTop_toBottomOf="@id/btnChannelDouble" />
 
             <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
-                    android:id="@+id/btnAudioFormat"
+                    android:id="@+id/btnAudioFormatLC"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@color/backgroundWhite"
@@ -169,10 +184,57 @@
                     android:gravity="center_vertical"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="@string/audio_format_aac"
+                    android:text="@string/audio_format_lc"
                     android:textColor="@color/textBlack"
                     android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@+id/tvAudioFormat" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioFormatHE"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_format_he"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAudioFormatLC" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioFormatHEV2"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_format_hev2"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAudioFormatHE" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnAudioFormatLD"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/backgroundWhite"
+                    android:drawableEnd="@drawable/hk_check"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/audio_format_ld"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAudioFormatHEV2" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

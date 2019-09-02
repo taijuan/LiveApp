@@ -2,6 +2,7 @@ package com.live.app
 
 import android.app.Application
 import androidx.annotation.Keep
+import com.live.utils.initActivityManager
 import com.live.utils.logE
 import com.live.utils.setLogDebug
 
@@ -15,6 +16,7 @@ class App : Application() {
     override fun onCreate() {
         app = this
         setLogDebug()
+        initActivityManager()
         super.onCreate()
     }
 
@@ -25,4 +27,5 @@ class App : Application() {
         "onTrimMemory: $level".logE()
         super.onTrimMemory(level)
     }
+
 }
