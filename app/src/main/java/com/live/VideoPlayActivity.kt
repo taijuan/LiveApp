@@ -60,7 +60,6 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
         showBar = true
         topBar.visibility = View.VISIBLE
         bottomBar.visibility = View.VISIBLE
-        loadingView.visibility = View.GONE
         if (videoIsPlaying()) {
             btnPlay.visibility = View.VISIBLE
         }

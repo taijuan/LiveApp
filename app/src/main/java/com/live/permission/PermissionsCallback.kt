@@ -4,9 +4,9 @@ interface PermissionsCallback {
 
     fun onGranted()
 
-    fun onDenied(permissions: List<String>)
+    fun onDenied(denied: List<String>)
 
-    fun onShowRationale(shouldShowRationalePermissions: List<String>)
+    fun onShowRationale(shouldShowRationale: List<String>)
 
-    fun onNeverAskAgain(permissions: List<String>)
+    fun onNeverAskAgain(neverAskAgain: List<String>)
 }

@@ -1,5 +1,6 @@
 package com.live
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.view.SurfaceHolder
@@ -26,8 +27,8 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
     private var isFlash = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setOrientation()
         setContentView(R.layout.activity_push_live)
-        val pushConfig = getPushConfig()
         btnBack.onClick({
             pop()
         })
@@ -35,7 +36,7 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
             isFlash = !isFlash
             pusher.setFlash(isFlash)
         })
-        pusher.init(this, pushConfig)
+        pusher.init(this, getPushConfig())
         pusher.setLivePushNetworkListener(this)
         pushView.holder.addCallback(this)
         btnCameraSwitch.onClick({
@@ -146,21 +147,24 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
     }
 
     private fun getPushConfig() = AlivcLivePushConfig().apply {
-        previewDisplayMode = AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL
-        when (intent.getIntExtra(
+        requestedOrientation = when (intent.getIntExtra(
             ORIENTATION_KEY,
-            AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT.ordinal
+            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.ordinal
         )) {
-            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.ordinal -> setPreviewOrientation(
-                AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT
-            )
-            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.ordinal -> setPreviewOrientation(
-                AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT
-            )
-            else -> setPreviewOrientation(
-                AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT
-            )
+            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.ordinal -> {
+                setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT)
+                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            }
+            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.ordinal -> {
+                setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT)
+                ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+            }
+            else -> {
+                setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT)
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            }
         }
+        previewDisplayMode = AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL
         when (intent.getIntExtra(CAMERA_ID, AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.ordinal)) {
             AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.ordinal -> setCameraType(
                 AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK
@@ -190,10 +194,6 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
             AlivcBeautyLevelEnum.BEAUTY_Professional.ordinal -> AlivcBeautyLevelEnum.BEAUTY_Professional
             else -> AlivcBeautyLevelEnum.BEAUTY_Normal
         }
-//        const val AUDIO_RATE = "audio rate"
-//        const val AUDIO_ENCODE_MODE = "audio encode mode"
-//        const val AUDIO_FORMAT = "audio format"
-//        const val AUDIO_CHANNEL = "audio channel"
         when (intent.getIntExtra(
             AUDIO_RATE,
             AlivcAudioSampleRateEnum.AUDIO_SAMPLE_RATE_48000.ordinal
@@ -229,6 +229,10 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
         this.setConnectRetryCount(10)
     }
 
+    private fun setOrientation() {
+
+    }
+
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
@@ -241,7 +245,7 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
      * surfaceView holder回调
      */
     override fun surfaceChanged(surfaceHolder: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {
-
+        "surfaceChanged".logE()
     }
 
     override fun surfaceDestroyed(surfaceHolder: SurfaceHolder?) {

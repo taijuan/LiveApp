@@ -117,7 +117,7 @@
                 android:theme="@style/GrayBackgroundTheme" />
         <activity
                 android:name=".PushLiveActivity"
-                android:configChanges="orientation|screenSize|keyboardHidden"
+                android:configChanges="keyboardHidden|orientation|screenSize"
                 android:screenOrientation="portrait"
                 android:theme="@style/GrayBackgroundTheme" />
         <activity

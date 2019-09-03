@@ -19,7 +19,9 @@ class WelcomeActivity : BaseActivity() {
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.READ_PHONE_STATE, onGranted = {
                 start()
-            }, onDenied = {
+            }, onDenied = { _, _ ->
+                start()
+            }, onNeverAskAgain = { _, _ ->
                 start()
             }
         )

@@ -10,15 +10,18 @@ import androidx.fragment.app.FragmentActivity
 
 
 fun FragmentActivity.request(vararg permissions: String) {
-    ActivityCompat.requestPermissions(this, permissions, 0XFF)
+    getKtxPermissionFragment(this).requestPermissionsByFragment(
+        permissions.distinct().toTypedArray(),
+        0x101
+    )
 }
 
 fun View.request(
     vararg permissions: String,
     onGranted: () -> Unit,
-    onDenied: ((permissions: List<String>) -> Unit)? = null,
-    onShowRationale: ((shouldShowRationalePermissions: List<String>) -> Unit)? = null,
-    onNeverAskAgain: ((permissions: List<String>) -> Unit)? = null
+    onDenied: ((denied: List<String>, permissions: List<String>) -> Unit)? = null,
+    onShowRationale: ((shouldShowRationale: List<String>, deniedPermissions: List<String>) -> Unit)? = null,
+    onNeverAskAgain: ((neverAskAgain: List<String>, permissions: List<String>) -> Unit)? = null
 ) {
     (context as? FragmentActivity)?.request(
         *permissions,
@@ -30,23 +33,23 @@ fun View.request(
 }
 
 fun FragmentActivity.request(
-    vararg permission: String,
+    vararg permissions: String,
     onGranted: () -> Unit,
-    onDenied: ((permissions: List<String>) -> Unit)? = null,
-    onShowRationale: ((shouldShowRationalePermissions: List<String>) -> Unit)? = null,
-    onNeverAskAgain: ((permissions: List<String>) -> Unit)? = null
+    onDenied: ((denied: List<String>, permissions: List<String>) -> Unit)? = null,
+    onShowRationale: ((shouldShowRationale: List<String>, permissions: List<String>) -> Unit)? = null,
+    onNeverAskAgain: ((neverAskAgain: List<String>, permissions: List<String>) -> Unit)? = null
 ) {
-    request(*permission, callback = object : PermissionsCallback {
-        override fun onDenied(permissions: List<String>) {
-            onDenied?.invoke(permissions)
+    request(*permissions, callback = object : PermissionsCallback {
+        override fun onDenied(denied: List<String>) {
+            onDenied?.invoke(denied, permissions.toList())
         }
 
-        override fun onShowRationale(shouldShowRationalePermissions: List<String>) {
-            onShowRationale?.invoke(shouldShowRationalePermissions)
+        override fun onShowRationale(shouldShowRationale: List<String>) {
+            onShowRationale?.invoke(shouldShowRationale, permissions.toList())
         }
 
-        override fun onNeverAskAgain(permissions: List<String>) {
-            onNeverAskAgain?.invoke(permissions)
+        override fun onNeverAskAgain(neverAskAgain: List<String>) {
+            onNeverAskAgain?.invoke(neverAskAgain, permissions.toList())
         }
 
         override fun onGranted() {
@@ -64,27 +67,21 @@ fun FragmentActivity.request(vararg permissions: String, callback: PermissionsCa
         callback.onGranted()
     } else {
         val shouldShowRationalePermissions = mutableListOf<String>()
-        val shouldNotShowRationalePermissions = mutableListOf<String>()
         for (permission in needRequestPermissions) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission))
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
                 shouldShowRationalePermissions.add(permission)
-            else
-                shouldNotShowRationalePermissions.add(permission)
+            }
         }
 
         if (shouldShowRationalePermissions.isNotEmpty()) {
             callback.onShowRationale(shouldShowRationalePermissions)
         }
-
-
-        if (shouldNotShowRationalePermissions.isNotEmpty()) {
-            getKtxPermissionFragment(this).also {
-                it.setOnPermissionsCallback(callback)
-                it.requestPermissionsByFragment(
-                    shouldNotShowRationalePermissions.toTypedArray(),
-                    0x101
-                )
-            }
+        getKtxPermissionFragment(this).also {
+            it.setOnPermissionsCallback(callback)
+            it.requestPermissionsByFragment(
+                needRequestPermissions.toTypedArray(),
+                0x101
+            )
         }
     }
 }

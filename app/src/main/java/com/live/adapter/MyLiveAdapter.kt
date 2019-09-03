@@ -12,6 +12,7 @@ import com.live.permission.request
 import com.live.utils.loadImageCenterCrop
 import com.live.utils.onClick
 import com.live.utils.push
+import com.live.utils.pushToSettings
 import kotlinx.android.synthetic.main.view_holder_my_live.view.*
 
 class MyLiveAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -86,6 +87,10 @@ class MyLiveHolder(parent: ViewGroup) :
                 Manifest.permission.READ_PHONE_STATE,
                 onGranted = {
                     itemView.push(PushLiveActivity::class.java)
+                }, onDenied = { _, _ ->
+                    pushToSettings()
+                }, onNeverAskAgain = { _, _ ->
+                    pushToSettings()
                 })
         })
     }
