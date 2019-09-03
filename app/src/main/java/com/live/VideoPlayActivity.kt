@@ -30,7 +30,7 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
         aspectRatioFrameLayout.resizeMode = RESIZE_MODE_FIT
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
-        playerView.videoWithExo()
+        playerView.videoSetVideoTextureView()
         videoPrepare("http://1252065688.vod2.myqcloud.com/d7dc3e4avodgzp1252065688/442c05395285890792586288323/hjRqKBsrAT4A.mov")
         controller.onClick({
             showBar()
@@ -104,6 +104,7 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
         videoRelease()
         exoPlayer.removeVideoListener(this)
         exoPlayer.removeListener(this)
+        playerView.videoClearVideoTextureView()
         handler.removeCallbacksAndMessages(null)
         super.onDestroy()
 

@@ -9,8 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
 
-const val TAG = "ktx"
-
 fun FragmentActivity.request(vararg permissions: String) {
     ActivityCompat.requestPermissions(this, permissions, 0XFF)
 }
@@ -19,7 +17,7 @@ fun View.request(
     vararg permissions: String,
     onGranted: () -> Unit,
     onDenied: ((permissions: List<String>) -> Unit)? = null,
-    onShowRationale: ((request: PermissionRequest) -> Unit)? = null,
+    onShowRationale: ((shouldShowRationalePermissions: List<String>) -> Unit)? = null,
     onNeverAskAgain: ((permissions: List<String>) -> Unit)? = null
 ) {
     (context as? FragmentActivity)?.request(
@@ -35,7 +33,7 @@ fun FragmentActivity.request(
     vararg permission: String,
     onGranted: () -> Unit,
     onDenied: ((permissions: List<String>) -> Unit)? = null,
-    onShowRationale: ((request: PermissionRequest) -> Unit)? = null,
+    onShowRationale: ((shouldShowRationalePermissions: List<String>) -> Unit)? = null,
     onNeverAskAgain: ((permissions: List<String>) -> Unit)? = null
 ) {
     request(*permission, callback = object : PermissionsCallback {
@@ -43,8 +41,8 @@ fun FragmentActivity.request(
             onDenied?.invoke(permissions)
         }
 
-        override fun onShowRationale(request: PermissionRequest) {
-            onShowRationale?.invoke(request)
+        override fun onShowRationale(shouldShowRationalePermissions: List<String>) {
+            onShowRationale?.invoke(shouldShowRationalePermissions)
         }
 
         override fun onNeverAskAgain(permissions: List<String>) {
@@ -59,8 +57,6 @@ fun FragmentActivity.request(
 }
 
 fun FragmentActivity.request(vararg permissions: String, callback: PermissionsCallback) {
-
-    val requestCode = PermissionsMap.put(callback)
 
     val needRequestPermissions = permissions.filter { !isGranted(it) }
 
@@ -77,21 +73,18 @@ fun FragmentActivity.request(vararg permissions: String, callback: PermissionsCa
         }
 
         if (shouldShowRationalePermissions.isNotEmpty()) {
-            callback.onShowRationale(
-                PermissionRequest(
-                    getKtxPermissionFragment(this),
-                    shouldShowRationalePermissions,
-                    requestCode
-                )
-            )
+            callback.onShowRationale(shouldShowRationalePermissions)
         }
 
 
         if (shouldNotShowRationalePermissions.isNotEmpty()) {
-            getKtxPermissionFragment(this).requestPermissionsByFragment(
-                shouldNotShowRationalePermissions.toTypedArray(),
-                requestCode
-            )
+            getKtxPermissionFragment(this).also {
+                it.setOnPermissionsCallback(callback)
+                it.requestPermissionsByFragment(
+                    shouldNotShowRationalePermissions.toTypedArray(),
+                    0x101
+                )
+            }
         }
     }
 }

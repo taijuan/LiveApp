@@ -6,6 +6,12 @@ import androidx.fragment.app.Fragment
 
 class PermissionFragment : Fragment() {
 
+    private var permissionsCallback: PermissionsCallback? = null
+
+    fun setOnPermissionsCallback(permissionsCallback: PermissionsCallback) {
+        this.permissionsCallback = permissionsCallback
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -35,7 +41,6 @@ class PermissionFragment : Fragment() {
                 grantedPermissions.add(permission)
             }
         }
-        val permissionsCallback = PermissionsMap.get(requestCode)
         if (deniedPermissions.isNotEmpty()) {
             permissionsCallback?.onDenied(deniedPermissions)
         }

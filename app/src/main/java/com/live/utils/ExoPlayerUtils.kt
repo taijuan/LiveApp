@@ -60,8 +60,12 @@ fun livePrepare(url: String) {
 }
 
 
-fun TextureView.videoWithExo() {
+fun TextureView.videoSetVideoTextureView() {
     exoPlayer.setVideoTextureView(this)
+}
+
+fun TextureView.videoClearVideoTextureView() {
+    exoPlayer.clearVideoTextureView(this)
 }
 
 fun videoSeekTo(position: Long) {

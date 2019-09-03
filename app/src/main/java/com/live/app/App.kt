@@ -12,7 +12,6 @@ lateinit var app: App
 @Keep
 class App : Application() {
 
-
     override fun onCreate() {
         app = this
         setLogDebug()

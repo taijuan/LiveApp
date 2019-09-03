@@ -1,4 +1,4 @@
-package com.sports.api
+package com.live.api
 
 import androidx.lifecycle.LiveData
 import retrofit2.*
@@ -45,7 +45,8 @@ data class Error<T>(val errorMsg: String) : SuccessError<T>()
  * 集成至CallAdapter
  * 主要功能数据转换成LiveData<SuccessError<R>>
  */
-class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, LiveData<SuccessError<R>>> {
+class LiveDataCallAdapter<R>(private val responseType: Type) :
+    CallAdapter<R, LiveData<SuccessError<R>>> {
     override fun responseType() = responseType
     override fun adapt(call: Call<R>): LiveData<SuccessError<R>> {
         return object : LiveData<SuccessError<R>>() {
@@ -80,18 +81,16 @@ fun createCallAdapterFactory(): LiveDataCallAdapterFactory {
  */
 class LiveDataCallAdapterFactory : CallAdapter.Factory() {
 
-    override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
-        if (getRawType(returnType) != LiveData::class.java) {
-            throw IllegalArgumentException("returnType  must  be LiveData")
-        }
+    override fun get(
+        returnType: Type,
+        annotations: Array<Annotation>,
+        retrofit: Retrofit
+    ): CallAdapter<*, *>? {
+        require(getRawType(returnType) == LiveData::class.java) { "returnType  must  be LiveData" }
         val observableType = getParameterUpperBound(0, returnType as ParameterizedType)
         val rawObservableType = getRawType(observableType)
-        if (rawObservableType != SuccessError::class.java) {
-            throw IllegalArgumentException("type must be a SuccessError")
-        }
-        if (observableType !is ParameterizedType) {
-            throw IllegalArgumentException("resource must be parameterized")
-        }
+        require(rawObservableType == SuccessError::class.java) { "type must be a SuccessError" }
+        require(observableType is ParameterizedType) { "resource must be parameterized" }
         val bodyType = getParameterUpperBound(0, observableType)
         return LiveDataCallAdapter<Any>(bodyType)
     }

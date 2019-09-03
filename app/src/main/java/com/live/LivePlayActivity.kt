@@ -26,7 +26,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         aspectRatioFrameLayout.resizeMode = RESIZE_MODE_FILL
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
-        playerView.videoWithExo()
+        playerView.videoSetVideoTextureView()
         livePrepare("rtmp://pull.cdhker.com/test0806/test06?auth_key=1565082602000-0-0-abaf2cdf6c392c985509ebc92e639852")
         controller.onClick({
             showBar()
@@ -66,6 +66,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         videoRelease()
         exoPlayer.removeVideoListener(this)
         exoPlayer.removeListener(this)
+        playerView.videoClearVideoTextureView()
         handler.removeCallbacksAndMessages(null)
         super.onDestroy()
 

@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import com.live.base.model.BaseReq
 import com.live.utils.okHttpClient
 import com.live.base.model.BaseRes
-import com.sports.api.SuccessError
-import com.sports.api.createCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.http.*
 

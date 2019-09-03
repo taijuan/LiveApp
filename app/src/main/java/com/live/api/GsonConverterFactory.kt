@@ -59,9 +59,10 @@ class GsonRequestBodyConverter<T>(private val gson: Gson, private val adapter: T
     @Throws(IOException::class)
     override fun convert(value: T): RequestBody {
         value.toString().logE()
-        if (value is String) {
-            return value.toRequestBody(MEDIA_TYPE)
+        if (value is CharSequence || value is Number || value is Boolean) {
+            return value.toString().toRequestBody(MEDIA_TYPE)
         }
+
         val buffer = Buffer()
         val writer = OutputStreamWriter(buffer.outputStream(), UTF_8)
         val jsonWriter = gson.newJsonWriter(writer)
