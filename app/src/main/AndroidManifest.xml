@@ -114,7 +114,7 @@
                 android:name=".VideoPlayActivity"
                 android:configChanges="orientation|screenSize|keyboardHidden"
                 android:screenOrientation="portrait"
-                android:theme="@style/GrayBackgroundTheme" />
+                android:theme="@style/BlackBackgroundTheme" />
         <activity
                 android:name=".PushLiveActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
@@ -125,6 +125,10 @@
                 android:configChanges="orientation|screenSize|keyboardHidden"
                 android:screenOrientation="portrait"
                 android:theme="@style/BlackBackgroundTheme" />
+        <activity
+                android:name=".SendCodeToMailActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
     </application>
 
 </manifest>

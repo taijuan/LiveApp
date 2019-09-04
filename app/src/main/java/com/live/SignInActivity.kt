@@ -24,7 +24,7 @@ class SignInActivity : BaseActivity() {
         })
 
         btnForgotPassword.onClick({
-            push(ForgotPasswordActivity::class.java)
+            push(SendCodeToMailActivity::class.java)
         })
     }
 }

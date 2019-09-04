@@ -10,80 +10,82 @@
             android:layout_marginTop="?attr/qmui_topbar_height"
             android:fitsSystemWindows="true">
 
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvNotice"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:fontFamily="@font/lato_regular"
-                android:gravity="center_vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="@string/reset_your_password"
-                android:textColor="@color/textGray"
-                android:textSize="16sp"
-                app:layout_constraintTop_toTopOf="parent" />
 
         <View
                 android:layout_width="match_parent"
-                android:layout_height="226dp"
+                android:layout_height="233dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/backgroundWhite"
-                app:layout_constraintTop_toBottomOf="@+id/tvNotice" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textEmail"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:paddingTop="8dp"
                 app:hintTextAppearance="@style/LoginHintTextAppearance"
-                app:layout_constraintTop_toBottomOf="@+id/tvNotice"
-                app:passwordToggleEnabled="true">
+                app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/hk_edit_background"
-                    android:hint="@string/new_password"
+                    android:hint="@string/your_email_here"
                     android:imeOptions="actionNext"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:lines="1"
                     android:textAppearance="@style/LoginTextAppearance" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textCode"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:paddingTop="8dp"
                 app:hintTextAppearance="@style/LoginHintTextAppearance"
-                app:layout_constraintTop_toBottomOf="@+id/textEmail"
-                app:passwordToggleEnabled="true">
+                app:layout_constraintTop_toBottomOf="@+id/textEmail">
 
             <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/hk_edit_background"
-                    android:hint="@string/confirm_password"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPassword"
+                    android:hint="@string/verification_code_here"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:lines="1"
                     android:textAppearance="@style/LoginTextAppearance" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/btnOK"
+                android:id="@+id/btnCode"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/verification_code"
+                android:textColor="@color/textBlack"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/textCode"
+                app:layout_constraintRight_toRightOf="parent"
+                app:qmui_borderColor="@color/backgroundBlue" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btnNext"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="39dp"
                 android:layout_marginEnd="20dp"
-                android:text="@string/ok"
+                android:text="@string/next"
                 android:textColor="@color/textWhite"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/textCode"

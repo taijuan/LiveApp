@@ -79,5 +79,11 @@
     <string name="audio_format_hev2">HEV2-AAC</string>
     <string name="audio_format_ld">AAC-LD</string>
     <string name="audio_format">Format</string>
+    <string name="reset_your_password">Reset your Password</string>
+    <string name="new_password">New Password</string>
+    <string name="ok">OK</string>
+    <string name="your_email_here">Your Email here</string>
+    <string name="verification_code_here">Verification Code here</string>
+    <string name="verification_code">Verification Code</string>
 
 </resources>
