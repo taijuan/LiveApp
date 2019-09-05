@@ -236,8 +236,12 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
-        pusher.destroy()
         pushView.holder.removeCallback(this)
+        try {
+            pusher.destroy()
+        } catch (e: Exception) {
+            e.logT()
+        }
         super.onDestroy()
     }
 
