@@ -1,10 +1,10 @@
 package com.live
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import com.live.base.BaseActivity
 import com.live.base.back
 import com.live.base.title
+import com.live.utils.CountDownTimerUtils
 import com.live.utils.onClick
 import com.live.utils.push
 import kotlinx.android.synthetic.main.activity_send_code_to_mail.*
@@ -32,19 +32,15 @@ class SendCodeToMailActivity : BaseActivity() {
 
     private fun shutDown() {
         btnCode.isEnabled = false
-        object : CountDownTimer(60 * 1000, 1000) {
-            override fun onFinish() {
+        CountDownTimerUtils(lifecycle).apply {
+            setOnTick {
+                btnCode.text = String.format("%ds", it / 1000)
+            }
+            setOnFinish {
                 btnCode.setText(R.string.verification_code)
                 btnCode.isEnabled = true
             }
-
-            override fun onTick(millis: Long) {
-                btnCode.text = "${millis / 1000}s"
-            }
-        }.start()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+            start()
+        }
     }
 }

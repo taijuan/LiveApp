@@ -12,7 +12,7 @@
             android:fitsSystemWindows="true">
 
         <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
-                android:id="@+id/tvAccount"
+                android:id="@+id/btnAccount"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginTop="8dp"
@@ -27,9 +27,23 @@
                 android:textSize="20sp"
                 app:layout_constraintTop_toTopOf="parent" />
 
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                android:id="@+id/btnChangePassword"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@color/backgroundWhite"
+                android:drawableEnd="@drawable/hk_next"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/change_password"
+                android:textColor="@color/textBlack"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/btnAccount" />
 
         <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
-                android:id="@+id/tvOptions"
+                android:id="@+id/btnOptions"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:background="@color/backgroundWhite"
@@ -41,11 +55,11 @@
                 android:text="@string/default_options"
                 android:textColor="@color/textBlack"
                 android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/tvAccount" />
+                app:layout_constraintTop_toBottomOf="@id/btnChangePassword" />
 
 
         <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
-                android:id="@+id/tvLogOut"
+                android:id="@+id/btnLogOut"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="8dp"
@@ -57,7 +71,7 @@
                 android:text="@string/log_out"
                 android:textColor="@color/textRed"
                 android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/tvOptions" />
+                app:layout_constraintTop_toBottomOf="@id/btnOptions" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

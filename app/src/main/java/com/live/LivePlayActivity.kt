@@ -1,5 +1,6 @@
 package com.live
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -9,7 +10,7 @@ import com.live.base.BaseActivity
 import com.live.base.back
 import com.live.base.title
 import com.live.utils.*
-import com.live.widget.RESIZE_MODE_FILL
+import com.live.widget.RESIZE_MODE_FIT
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import kotlinx.android.synthetic.main.activity_live_play.*
 
@@ -23,7 +24,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         setContentView(R.layout.activity_live_play)
         topBar.title(R.string.app_name)
         topBar.back()
-        aspectRatioFrameLayout.resizeMode = RESIZE_MODE_FILL
+        aspectRatioFrameLayout.resizeMode = RESIZE_MODE_FIT
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
         playerView.videoSetVideoTextureView()
@@ -85,6 +86,11 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         val videoAspectRatio: Float =
             if (height == 0 || width == 0) 1f else width * pixelWidthHeightRatio / height
         aspectRatioFrameLayout.setAspectRatio(videoAspectRatio)
+        requestedOrientation = if (width > height) {
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     override fun onSurfaceSizeChanged(width: Int, height: Int) {

@@ -85,5 +85,7 @@
     <string name="your_email_here">Your Email here</string>
     <string name="verification_code_here">Verification Code here</string>
     <string name="verification_code">Verification Code</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password">Old Password</string>
 
 </resources>

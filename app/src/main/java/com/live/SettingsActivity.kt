@@ -15,13 +15,16 @@ class SettingsActivity : BaseActivity() {
         setContentView(R.layout.activity_settings)
         topBar.title(R.string.about)
         topBar.back()
-        tvAccount.onClick({
+        btnAccount.onClick({
             push(ProfileActivity::class.java)
         })
-        tvOptions.onClick({
+        btnChangePassword.onClick({
+            push(ChangePasswordActivity::class.java)
+        })
+        btnOptions.onClick({
             push(LiveOptionsActivity::class.java)
         })
-        tvLogOut.onClick({
+        btnLogOut.onClick({
             exitApp()
         })
     }
