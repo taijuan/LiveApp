@@ -8,11 +8,11 @@ import com.live.LiveOptionsActivity
 import com.live.PushLiveActivity
 import com.live.R
 import com.live.model.LiveData
-import com.live.permission.request
 import com.live.utils.loadImageCenterCrop
 import com.live.utils.onClick
 import com.live.utils.push
 import com.live.utils.pushToSettings
+import com.taijuan.permission.request
 import kotlinx.android.synthetic.main.view_holder_my_live.view.*
 
 class MyLiveAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

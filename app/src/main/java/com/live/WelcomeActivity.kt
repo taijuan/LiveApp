@@ -3,8 +3,8 @@ package com.live
 import android.Manifest
 import android.os.Bundle
 import com.live.base.BaseActivity
-import com.live.permission.request
 import com.live.utils.pushAndPop
+import com.taijuan.permission.request
 
 
 class WelcomeActivity : BaseActivity() {
