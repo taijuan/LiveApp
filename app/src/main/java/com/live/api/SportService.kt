@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import com.live.base.model.BaseReq
 import com.live.base.model.BaseRes
 import com.live.utils.okHttpClient
+import com.taijuan.retrofit.GsonConverterFactory
+import com.taijuan.retrofit.LiveDataCallAdapterFactory
+import com.taijuan.retrofit.SuccessError
 import retrofit2.Retrofit
 import retrofit2.http.*
 
@@ -44,7 +47,7 @@ val testService: SportService by lazy {
 val wangYiService: SportService by lazy {
     Retrofit.Builder().baseUrl("https://api.netease.im/")
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(createCallAdapterFactory())
+        .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
         .callFactory(
             okHttpClient
         )
