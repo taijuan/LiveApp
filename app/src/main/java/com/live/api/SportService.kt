@@ -2,15 +2,15 @@ package com.live.api
 
 import androidx.lifecycle.LiveData
 import com.live.base.model.BaseReq
-import com.live.utils.okHttpClient
 import com.live.base.model.BaseRes
+import com.live.utils.okHttpClient
 import retrofit2.Retrofit
 import retrofit2.http.*
 
 val sportService: SportService by lazy {
     Retrofit.Builder().baseUrl("https://api.cdeclips.com/hknews-api/")
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(createCallAdapterFactory())
+        .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
         .callFactory(
             okHttpClient
         )
@@ -21,7 +21,7 @@ val sportService: SportService by lazy {
 val rongYunService: SportService by lazy {
     Retrofit.Builder().baseUrl("https://api-cn.ronghub.com/")
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(createCallAdapterFactory())
+        .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
         .callFactory(
             okHttpClient
         )
@@ -33,7 +33,7 @@ val rongYunService: SportService by lazy {
 val testService: SportService by lazy {
     Retrofit.Builder().baseUrl("http://3.113.59.250/sport-api/")
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(createCallAdapterFactory())
+        .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
         .callFactory(
             okHttpClient
         )

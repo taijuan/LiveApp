@@ -80,6 +80,12 @@ fun createCallAdapterFactory(): LiveDataCallAdapterFactory {
  * CallAdapter.Factory工厂
  */
 class LiveDataCallAdapterFactory : CallAdapter.Factory() {
+    companion object {
+        @JvmOverloads
+        fun create(): LiveDataCallAdapterFactory {
+            return LiveDataCallAdapterFactory()
+        }
+    }
 
     override fun get(
         returnType: Type,
