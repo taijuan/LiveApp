@@ -60,7 +60,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.core:core-ktx:1.1.0"
-    implementation("androidx.core:core:1.2.0-alpha03") {
+    implementation("androidx.core:core:1.1.0") {
         force = true
     }
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -73,9 +73,9 @@ dependencies {
     /**
      * okhttp square出品
      */
-    implementation 'com.squareup.okhttp3:okhttp:4.1.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.1.0'
-    implementation 'com.squareup.okio:okio:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
+    implementation 'com.squareup.okio:okio:2.4.0'
 
     /**
      * retrofit square出品

@@ -147,9 +147,11 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
     }
 
     private fun getPushConfig() = AlivcLivePushConfig().apply {
+        isEnableBitrateControl = true
+        setAutoFocus(true)
         requestedOrientation = when (intent.getIntExtra(
             ORIENTATION_KEY,
-            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.ordinal
+            AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT.ordinal
         )) {
             AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.ordinal -> {
                 setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT)
@@ -171,10 +173,10 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
             )
             else -> setCameraType(AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT)
         }
-        when (intent.getIntExtra(RESOLUTION, AlivcResolutionEnum.RESOLUTION_540P.ordinal)) {
+        when (intent.getIntExtra(RESOLUTION, AlivcResolutionEnum.RESOLUTION_1080P.ordinal)) {
             AlivcResolutionEnum.RESOLUTION_540P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_540P)
-            AlivcResolutionEnum.RESOLUTION_1080P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_1080P)
-            else -> setResolution(AlivcResolutionEnum.RESOLUTION_720P)
+            AlivcResolutionEnum.RESOLUTION_1080P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_720P)
+            else -> setResolution(AlivcResolutionEnum.RESOLUTION_1080P)
         }
         qualityMode = when (intent.getIntExtra(
             QUALITY_MODE,
@@ -238,6 +240,16 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
         handler.removeCallbacksAndMessages(null)
         pushView.holder.removeCallback(this)
         try {
+            pusher.stopPush()
+        } catch (e: Exception) {
+            e.logT()
+        }
+        try {
+            pusher.stopPreview()
+        } catch (e: Exception) {
+            e.logT()
+        }
+        try {
             pusher.destroy()
         } catch (e: Exception) {
             e.logT()
@@ -253,14 +265,21 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
     }
 
     override fun surfaceDestroyed(surfaceHolder: SurfaceHolder?) {
-
+        "surfaceDestroyed".logE()
     }
 
     override fun surfaceCreated(surfaceHolder: SurfaceHolder?) {
         "surfaceCreated".logE()
-        if (pusher.currentStatus == AlivcLivePushStats.INIT) {
-            pusher.startPreviewAysnc(pushView)
-            checkPushStatusWhenSurfaceCreated()
+        try {
+            if (pusher.currentStatus == AlivcLivePushStats.INIT) {
+                pusher.startPreviewAysnc(pushView)
+                checkPushStatusWhenSurfaceCreated()
+            } else {
+                pusher.pause()
+                pusher.resumeAsync()
+            }
+        } catch (e: Exception) {
+            e.logT()
         }
     }
 
@@ -269,6 +288,7 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
     }
 
     override fun run() {
+        handler.removeCallbacksAndMessages(null)
         "pusher.isNetworkPushing = ${pusher.isNetworkPushing}".logE()
         if (pusher.isNetworkPushing) {
             btnStartPush.visibility = View.GONE
