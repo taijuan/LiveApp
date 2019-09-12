@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content">
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/tvNew"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:text="@string/new_str"
+            android:textColor="@color/textBlack"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/lineGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/tvOpenNetwork"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:text="@string/open_network"
+            android:textColor="@color/textBlack"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/tvNew" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,14 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
 
+        <View
+                android:id="@+id/popAnchorView"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="?attr/qmui_topbar_height"
+                android:fitsSystemWindows="true" />
+
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"

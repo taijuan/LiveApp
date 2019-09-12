@@ -87,5 +87,8 @@
     <string name="verification_code">Verification Code</string>
     <string name="change_password">Change Password</string>
     <string name="old_password">Old Password</string>
+    <string name="url">URL</string>
+    <string name="open_network">Open Network</string>
+    <string name="new_str">New</string>
 
 </resources>

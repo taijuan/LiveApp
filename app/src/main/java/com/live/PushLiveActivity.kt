@@ -173,17 +173,19 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
             )
             else -> setCameraType(AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT)
         }
-        when (intent.getIntExtra(RESOLUTION, AlivcResolutionEnum.RESOLUTION_1080P.ordinal)) {
+        when (intent.getIntExtra(RESOLUTION, AlivcResolutionEnum.RESOLUTION_SELFDEFINE.ordinal)) {
             AlivcResolutionEnum.RESOLUTION_540P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_540P)
+            AlivcResolutionEnum.RESOLUTION_720P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_720P)
             AlivcResolutionEnum.RESOLUTION_1080P.ordinal -> setResolution(AlivcResolutionEnum.RESOLUTION_720P)
-            else -> setResolution(AlivcResolutionEnum.RESOLUTION_1080P)
+            else -> setResolution(AlivcResolutionEnum.RESOLUTION_SELFDEFINE)
+
         }
         qualityMode = when (intent.getIntExtra(
             QUALITY_MODE,
             AlivcQualityModeEnum.QM_RESOLUTION_FIRST.ordinal
         )) {
-            AlivcQualityModeEnum.QM_RESOLUTION_FIRST.ordinal -> AlivcQualityModeEnum.QM_RESOLUTION_FIRST
-            else -> AlivcQualityModeEnum.QM_FLUENCY_FIRST
+            AlivcQualityModeEnum.QM_RESOLUTION_FIRST.ordinal -> AlivcQualityModeEnum.QM_CUSTOM
+            else -> AlivcQualityModeEnum.QM_RESOLUTION_FIRST
         }
         when (intent.getIntExtra(VIDEO_ENCODE_MODE, AlivcEncodeModeEnum.Encode_MODE_HARD.ordinal)) {
             AlivcEncodeModeEnum.Encode_MODE_HARD.ordinal -> setVideoEncodeMode(AlivcEncodeModeEnum.Encode_MODE_HARD)
@@ -191,7 +193,7 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
         }
         beautyLevel = when (intent.getIntExtra(
             VIDEO_BEAUTY_MODE,
-            AlivcBeautyLevelEnum.BEAUTY_Professional.ordinal
+            AlivcBeautyLevelEnum.BEAUTY_Normal.ordinal
         )) {
             AlivcBeautyLevelEnum.BEAUTY_Professional.ordinal -> AlivcBeautyLevelEnum.BEAUTY_Professional
             else -> AlivcBeautyLevelEnum.BEAUTY_Normal
@@ -285,6 +287,7 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
 
     private fun checkPushStatusWhenSurfaceCreated() {
         handler.postDelayed(this, 1000)
+        pusher.setAutoFocus(true)
     }
 
     override fun run() {

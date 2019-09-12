@@ -133,6 +133,10 @@
                 android:name=".ChangePasswordActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/GrayBackgroundTheme" />
+        <activity
+                android:name=".OpenNetworkActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/GrayBackgroundTheme" />
     </application>
 
 </manifest>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:fitsSystemWindows="true">
+
+        <cn.bingoogolapple.qrcode.zxing.ZXingView
+                android:id="@+id/zxingview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:qrcv_animTime="1000"
+                app:qrcv_borderColor="@android:color/white"
+                app:qrcv_borderSize="1dp"
+                app:qrcv_cornerColor="@color/colorPrimaryDark"
+                app:qrcv_cornerLength="20dp"
+                app:qrcv_cornerSize="3dp"
+                app:qrcv_maskColor="#33FFFFFF"
+                app:qrcv_rectWidth="200dp"
+                app:qrcv_scanLineColor="@color/colorPrimaryDark"
+                app:qrcv_scanLineSize="1dp"
+                app:qrcv_topOffset="90dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
