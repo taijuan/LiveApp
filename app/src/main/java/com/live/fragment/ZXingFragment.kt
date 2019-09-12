@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import cn.bingoogolapple.qrcode.core.QRCodeView
@@ -61,12 +62,12 @@ fun FragmentActivity.getZxFragment(): ZXingFragment {
     return fragment as ZXingFragment
 }
 
-fun FragmentActivity.requestZXing() {
+fun FragmentActivity.requestZXing(@IdRes containerViewId: Int = android.R.id.content) {
     val fragment = getZxFragment()
     if (!fragment.isAdded) {
         supportFragmentManager
             .beginTransaction()
-            .add(android.R.id.content, fragment, ZXingFragment::class.java.name)
+            .add(containerViewId, fragment, ZXingFragment::class.java.name)
             .commitNow()
     }
 }
