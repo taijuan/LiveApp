@@ -7,13 +7,14 @@ import android.os.Handler
 import android.view.View
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.video.VideoListener
+import com.live.app.app
 import com.live.base.BaseActivity
 import com.live.utils.*
 import com.live.widget.RESIZE_MODE_FIT
 import com.live.widget.createShareDialog
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import kotlinx.android.synthetic.main.activity_live_play.*
 
 
@@ -56,7 +57,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
         playerView.videoSetVideoTextureView()
-        livePrepare("rtmp://pull.cdhker.com/test0806/test06?auth_key=1565082602000-0-0-abaf2cdf6c392c985509ebc92e639852")
+        livePrepare("rtmp://pull.xingguitiyu.com/xgtylive/test091925?auth_key=1568888950-0-0-4d8af9be591dd5f1a3db393e5bdd764f")
         controller.onClick({
             showBar()
         })
@@ -197,13 +198,12 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         playStatus = 3
         loadingStop()
         btnAction.setImageResource(R.drawable.hk_replay)
-        QMUIDialog.MessageDialogBuilder(this).setMessage("PLAYBACK......")
-            .addAction("Ok") { _, _ ->
+        XPopup.Builder(this)
+            .dismissOnBackPressed(true)
+            .dismissOnTouchOutside(true)
+            .maxWidth(QMUIDisplayHelper.dp2px(app, 320))
+            .asConfirm("直播提示", "直播已结束...") {
                 onBackPressed()
-            }.create().apply {
-                setCanceledOnTouchOutside(false)
-                setCancelable(false)
-                showWithImmersiveCheck()
-            }
+            }.show()
     }
 }
