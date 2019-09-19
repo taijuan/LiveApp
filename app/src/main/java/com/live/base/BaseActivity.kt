@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.live.R
+import com.live.app.app
 import com.live.utils.onClick
 import com.live.utils.pop
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
@@ -34,18 +35,27 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 }
 
-fun QMUITopBarLayout.title(res: Int) {
-    this.setTitle(res).typeface =
-        ResourcesCompat.getFont(this.context, R.font.lato_bold)
+fun QMUITopBarLayout.title(
+    res: Int,
+    textColor: Int = R.color.textBlack,
+    gravity: Int = Gravity.CENTER
+) {
+    this.setTitle(res).apply {
+        typeface = ResourcesCompat.getFont(this.context, R.font.lato_bold)
+        this.setTextColor(ContextCompat.getColor(app, textColor))
+    }
+    this.setTitleGravity(gravity)
 }
 
-fun QMUITopBarLayout.back() {
-    this.addLeftImageButton(R.drawable.hk_back, R.integer.id_back).onClick({
-        this.pop()
-    })
+fun QMUITopBarLayout.back(res: Int = R.drawable.hk_back) {
+    this.addLeftImageButton(res, R.integer.id_back).apply {
+        onClick({
+            this.pop()
+        })
+    }
 }
 
-fun QMUITopBarLayout.add(): QMUIAlphaImageButton? {
+fun QMUITopBarLayout.add(): QMUIAlphaImageButton {
     return this.addRightImageButton(R.drawable.hk_add, R.integer.id_add)
 }
 

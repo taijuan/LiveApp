@@ -1,6 +1,7 @@
 package com.live.utils
 
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 
 /**
@@ -20,21 +21,21 @@ fun View.onClick(body: (View) -> Unit, duration: Long = 500L) {
 /**
  * ImageView图片加载
  */
-fun AppCompatImageView.loadImageCenterCrop(imageUrl: Any) {
+fun ImageView.loadImageCenterCrop(imageUrl: Any) {
     GlideApp.with(this)
         .load(imageUrl)
         .centerCrop()
         .into(this)
 }
 
-fun AppCompatImageView.loadImageFitCenter(imageUrl: Any) {
+fun ImageView.loadImageFitCenter(imageUrl: Any) {
     GlideApp.with(this)
         .load(imageUrl)
         .fitCenter()
         .into(this)
 }
 
-fun AppCompatImageView.loadImageCircleCrop(imageUrl: Any) {
+fun ImageView.loadImageCircleCrop(imageUrl: Any) {
     GlideApp.with(this)
         .load(imageUrl)
         .circleCrop()

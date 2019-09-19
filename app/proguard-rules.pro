@@ -118,3 +118,6 @@
 -keep class com.alibaba.livecloud.** { *;}
 -keep class com.alivc.** { *;}
 #阿里云推流SDK end
+
+-dontwarn com.lxj.xpopup.widget.**
+-keep class com.lxj.xpopup.widget.**{*;}

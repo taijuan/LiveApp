@@ -28,7 +28,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textInputPassword">
 
         <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editEmail"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/hk_edit_background"
@@ -55,7 +55,7 @@
             app:passwordToggleEnabled="true">
 
         <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editPassword"
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/hk_edit_background"

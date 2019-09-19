@@ -16,7 +16,10 @@ class OpenNetworkActivity : BaseActivity() {
         topBar.title(R.string.open_network)
         topBar.back()
         topBar.addRightImageButton(R.drawable.hk_scan, R.drawable.hk_scan).onClick({
-            requestZXing(R.id.zxingController)
+            requestZXing {
+                etURL.setText(it)
+                onBackPressZxing()
+            }
         })
         btnGo.setChangeAlphaWhenPress(true)
         btnGo.onClick({

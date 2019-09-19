@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.R
-import com.live.model.LiveData
+import com.live.model.LiveDataRes
 import com.live.utils.loadImageCenterCrop
 import com.live.utils.onClick
 import com.live.utils.push
@@ -13,14 +13,14 @@ import kotlinx.android.synthetic.main.view_holder_history.view.*
 
 
 class HistoryLiveAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val data = ArrayList<LiveData>()
-    fun refresh(data: List<LiveData>) {
+    private val data = ArrayList<LiveDataRes>()
+    fun refresh(data: List<LiveDataRes>) {
         this.data.clear()
         this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun loadMore(data: List<LiveData>) {
+    fun loadMore(data: List<LiveDataRes>) {
         val positionStart = this.data.size
         val itemCount = data.size
         this.data.addAll(data)
@@ -55,16 +55,16 @@ class HistoryLiveHolder(parent: ViewGroup) :
             false
         )
     ) {
-    private lateinit var data: LiveData
-    fun setData(data: LiveData) {
-        this.data = data
-        itemView.imgCover.loadImageCenterCrop(data.imgUrl)
-        itemView.tvTitle.text = data.title
-        itemView.tvTime.text = data.time
+    private lateinit var dataRes: LiveDataRes
+    fun setData(dataRes: LiveDataRes) {
+        this.dataRes = dataRes
+        itemView.imgCover.loadImageCenterCrop(dataRes.coverImg)
+        itemView.tvTitle.text = dataRes.title
+        itemView.tvTime.text = dataRes.createTime
     }
 
     init {
-        itemView.btnPlay.onClick({
+        itemView.btnAction.onClick({
             itemView.push(VideoPlayActivity::class.java)
         })
     }

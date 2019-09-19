@@ -6,12 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.live.*
 import com.live.base.BaseFragment
+import com.live.model.UserRes
 import com.live.utils.loadImageCircleCrop
 import com.live.utils.onClick
 import com.live.utils.push
+import com.live.viewmodel.getUser
 import kotlinx.android.synthetic.main.fragment_me.*
 
 class MeFragment : BaseFragment() {
+    private val user: UserRes by lazy {
+        getUser()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,9 +26,9 @@ class MeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imgHead.loadImageCircleCrop("http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg")
-        tvName.text = "ZuiWeng"
-        tvJob.text = "Job"
+        imgHead.loadImageCircleCrop(user.headImage)
+        tvName.text = user.nickname
+        tvJob.text = user.nickname
         btnProfile.onClick({
             push(ProfileActivity::class.java)
         })

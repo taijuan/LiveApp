@@ -80,13 +80,12 @@ fun videoOnPause() {
 
 
 fun videoOnResume() {
-    if (!exoPlayer.playWhenReady) {
-        exoPlayer.playWhenReady = true
+    if (exoPlayer.playWhenReady) {
+        exoPlayer.playWhenReady = false
     }
+    exoPlayer.playWhenReady = true
 }
 
 fun videoRelease() {
     exoPlayer.stop()
 }
-
-fun videoIsPlaying() = exoPlayer.playWhenReady

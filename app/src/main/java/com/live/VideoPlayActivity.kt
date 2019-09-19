@@ -2,6 +2,7 @@ package com.live
 
 import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -10,23 +11,33 @@ import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.video.VideoListener
 import com.live.base.BaseActivity
-import com.live.base.back
-import com.live.base.title
 import com.live.utils.*
 import com.live.widget.RESIZE_MODE_FIT
+import com.live.widget.createShareDialog
 import kotlinx.android.synthetic.main.activity_video_play.*
 
 
 class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
     SeekBar.OnSeekBarChangeListener {
-
+    private val loadingDrawable: AnimationDrawable by lazy {
+        this.getDrawable(R.drawable.hk_loading) as AnimationDrawable
+    }
+    private var playStatus = 0
     private var showBar = false
     private val handler = Handler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_play)
-        topBar.title(R.string.app_name)
-        topBar.back()
+        topBar.setBackgroundAlpha(0)
+        tvTitle.apply {
+            text = "Video Play"
+            onClick({
+                pop()
+            })
+        }
+        btnShare.onClick({
+            createShareDialog(requestedOrientation)
+        })
         aspectRatioFrameLayout.resizeMode = RESIZE_MODE_FIT
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
@@ -36,19 +47,27 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
             showBar()
         })
         setBtnFullText()
-        btnFullScreen.onClick({
-            switchFullScreen()
+        btnScreen.apply {
+            isSelected = true
+            onClick({
+                switchFullScreen()
+            })
+        }
+        btnAction.onClick({
+            when (playStatus) {
+                1 -> videoOnResume()
+                2 -> videoOnPause()
+                3 -> videoRestart()
+            }
         })
-        btnPlay.onClick({
-            videoOnPause()
+        btnPlayAndPause.onClick({
+            when (playStatus) {
+                1 -> videoOnResume()
+                2 -> videoOnPause()
+                3 -> videoRestart()
+            }
         })
-        btnStop.onClick({
-            videoOnResume()
-        })
-        btnEnd.onClick({
-            videoRestart()
-            btnEnd.visibility = View.GONE
-        })
+        loadingStart()
         timeBar.setOnSeekBarChangeListener(this)
         setTimeBar()
     }
@@ -60,9 +79,7 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
         showBar = true
         topBar.visibility = View.VISIBLE
         bottomBar.visibility = View.VISIBLE
-        if (videoIsPlaying()) {
-            btnPlay.visibility = View.VISIBLE
-        }
+        btnAction.visibility = View.VISIBLE
         handler.postDelayed({
             hideBar()
         }, 5000L)
@@ -75,7 +92,7 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
         showBar = false
         topBar.visibility = View.GONE
         bottomBar.visibility = View.GONE
-        btnPlay.visibility = View.GONE
+        btnAction.visibility = View.GONE
     }
 
     private fun switchFullScreen() {
@@ -85,8 +102,7 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
     }
 
     private fun setBtnFullText() {
-        btnFullScreen.text =
-            if (requestedOrientation == SCREEN_ORIENTATION_PORTRAIT) "L" else "P"
+        btnScreen.isSelected = requestedOrientation == SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onResume() {
@@ -100,11 +116,12 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
     }
 
     override fun onDestroy() {
-        videoRelease()
+        loadingStop()
+        handler.removeCallbacksAndMessages(null)
         exoPlayer.removeVideoListener(this)
         exoPlayer.removeListener(this)
         playerView.videoClearVideoTextureView()
-        handler.removeCallbacksAndMessages(null)
+        videoRelease()
         super.onDestroy()
 
     }
@@ -144,13 +161,10 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
         "playWhenReady = $playWhenReady playbackState = $playbackState".logE()
         when (playbackState) {
             Player.STATE_IDLE -> {
+                videoPause()
             }
             Player.STATE_BUFFERING -> {
-                if (playWhenReady) {
-                    videoLoading()
-                } else {
-                    videoPause()
-                }
+                videoLoading()
             }
             Player.STATE_READY -> {
                 if (playWhenReady) {
@@ -171,17 +185,14 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
             val progress = exoPlayer.currentPosition
             val secondaryProgress = exoPlayer.contentBufferedPosition
             if (total > 0) {
-                tvTotalTime.visibility = View.VISIBLE
-                tvCurrentTime.visibility = View.VISIBLE
+                tvTime.visibility = View.VISIBLE
                 timeBar.visibility = View.VISIBLE
-                tvTotalTime.text = getStringForTime(total)
-                tvCurrentTime.text = getStringForTime(progress)
+                tvTime.text = "%s/%s".format(getStringForTime(progress), getStringForTime(total))
                 timeBar.max = total.toInt()
                 timeBar.progress = progress.toInt()
                 timeBar.secondaryProgress = secondaryProgress.toInt()
             } else {
-                tvTotalTime.visibility = View.GONE
-                tvCurrentTime.visibility = View.GONE
+                tvTime.visibility = View.GONE
                 timeBar.visibility = View.GONE
             }
             setTimeBar()
@@ -189,31 +200,44 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
     }
 
     private fun videoLoading() {
-        loadingView.visibility = View.VISIBLE
-        btnPlay.visibility = View.GONE
-        btnStop.visibility = View.GONE
-        loadingView.start()
+        playStatus = 0
+        loadingStart()
+        btnPlayAndPause.setImageResource(R.drawable.hk_bottom_play)
+    }
+
+    private fun loadingStart() {
+        btnAction.setImageDrawable(loadingDrawable)
+        if (!loadingDrawable.isRunning) {
+            loadingDrawable.start()
+        }
     }
 
     private fun videoPause() {
-        loadingView.visibility = View.GONE
-        btnPlay.visibility = View.GONE
-        btnStop.visibility = View.VISIBLE
-        btnEnd.visibility = View.GONE
+        playStatus = 1
+        loadingStop()
+        btnAction.setImageResource(R.drawable.hk_play)
+        btnPlayAndPause.setImageResource(R.drawable.hk_bottom_play)
     }
 
     private fun videoPlay() {
-        loadingView.visibility = View.GONE
-        btnPlay.visibility = View.GONE
-        btnStop.visibility = View.GONE
-        btnEnd.visibility = View.GONE
+        playStatus = 2
+        loadingStop()
+        btnAction.setImageResource(R.drawable.hk_pause)
+        btnPlayAndPause.setImageResource(R.drawable.hk_bottom_pause)
     }
 
     private fun videoEnd() {
-        loadingView.visibility = View.GONE
-        btnPlay.visibility = View.GONE
-        btnStop.visibility = View.GONE
-        btnEnd.visibility = View.VISIBLE
+        playStatus = 3
+        loadingStop()
+        btnAction.setImageResource(R.drawable.hk_replay)
+        btnPlayAndPause.setImageResource(R.drawable.hk_bottom_play)
+    }
+
+    private fun loadingStop() {
+        btnAction.setImageDrawable(null)
+        if (loadingDrawable.isRunning) {
+            loadingDrawable.stop()
+        }
     }
 
     private fun getStringForTime(timeMs: Long): String {

@@ -8,7 +8,9 @@
     <color name="backgroundGray">#FFF3F3F3</color>
     <color name="backgroundStrongGray">#FFEDEDED</color>
     <color name="backgroundBlue">#FF2E70C8</color>
+    <color name="backgroundLightBlue">#882E70C8</color>
     <color name="backgroundBlack">#FF000000</color>
+    <color name="backgroundRed">#FFE46868</color>
 
     //字体颜色
     <color name="textBlue">#FF2E70C8</color>

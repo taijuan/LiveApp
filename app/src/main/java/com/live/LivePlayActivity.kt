@@ -1,29 +1,57 @@
 package com.live
 
 import android.content.pm.ActivityInfo
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.video.VideoListener
 import com.live.base.BaseActivity
-import com.live.base.back
-import com.live.base.title
 import com.live.utils.*
 import com.live.widget.RESIZE_MODE_FIT
+import com.live.widget.createShareDialog
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.core.BasePopupView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import kotlinx.android.synthetic.main.activity_live_play.*
 
 
 class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
-
+    private val dialog: BasePopupView by lazy {
+        XPopup.Builder(this)
+            .dismissOnBackPressed(true)
+            .dismissOnTouchOutside(true)
+            .asConfirm("直播提示", "直播未开始...") {
+                onBackPressed()
+            }
+    }
+    private val loadingDrawable: AnimationDrawable by lazy {
+        this.getDrawable(R.drawable.hk_loading) as AnimationDrawable
+    }
+    private var playStatus = 0
     private var showBar = false
     private val handler = Handler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_live_play)
-        topBar.title(R.string.app_name)
-        topBar.back()
+        topBar.setBackgroundAlpha(0)
+        tvTitle.apply {
+            text = "Live Play"
+            onClick({
+                pop()
+            })
+        }
+        btnShare.onClick({
+            createShareDialog(requestedOrientation)
+        })
+        btnAction.onClick({
+            when (playStatus) {
+                1 -> videoOnResume()
+                2 -> videoOnPause()
+                3 -> videoRestart()
+            }
+        })
         aspectRatioFrameLayout.resizeMode = RESIZE_MODE_FIT
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
@@ -32,6 +60,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         controller.onClick({
             showBar()
         })
+        loadingStart()
     }
 
     private fun showBar() {
@@ -40,6 +69,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         }
         showBar = true
         topBar.visibility = View.VISIBLE
+        btnAction.visibility = View.VISIBLE
         handler.postDelayed({
             hideBar()
         }, 5000L)
@@ -51,6 +81,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         }
         showBar = false
         topBar.visibility = View.GONE
+        btnAction.visibility = View.GONE
     }
 
     override fun onResume() {
@@ -64,11 +95,11 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
     }
 
     override fun onDestroy() {
-        videoRelease()
+        handler.removeCallbacksAndMessages(null)
         exoPlayer.removeVideoListener(this)
         exoPlayer.removeListener(this)
         playerView.videoClearVideoTextureView()
-        handler.removeCallbacksAndMessages(null)
+        videoRelease()
         super.onDestroy()
 
     }
@@ -105,16 +136,10 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         "playWhenReady = $playWhenReady playbackState = $playbackState".logE()
         when (playbackState) {
             Player.STATE_IDLE -> {
-                if (playWhenReady) {
-                    liveNotStart()
-                }
+                liveNotStart()
             }
             Player.STATE_BUFFERING -> {
-                if (playWhenReady) {
-                    liveLoading()
-                } else {
-                    livePause()
-                }
+                liveLoading()
             }
             Player.STATE_READY -> {
                 if (playWhenReady) {
@@ -129,34 +154,50 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         }
     }
 
+    private fun loadingStart() {
+        btnAction.setImageDrawable(loadingDrawable)
+        if (!loadingDrawable.isRunning) {
+            loadingDrawable.start()
+        }
+    }
+
+    private fun loadingStop() {
+        btnAction.setImageDrawable(null)
+        if (loadingDrawable.isRunning) {
+            loadingDrawable.stop()
+        }
+    }
+
     private fun liveNotStart() {
-        loadingView.visibility = View.GONE
-        QMUIDialog.MessageDialogBuilder(this).setMessage("直播未开始......")
-            .addAction("Ok") { _, _ ->
-                onBackPressed()
-            }.create().apply {
-                setCanceledOnTouchOutside(false)
-                setCancelable(false)
-                showWithImmersiveCheck()
-            }
+        livePause()
+        if (!dialog.isShow) {
+            dialog.show()
+        }
     }
 
     private fun liveLoading() {
-        loadingView.visibility = View.VISIBLE
-        loadingView.start()
+        playStatus = 0
+        loadingStart()
     }
 
     private fun livePause() {
-        loadingView.visibility = View.GONE
+        playStatus = 1
+        loadingStop()
+        btnAction.setImageResource(R.drawable.hk_play)
     }
 
     private fun livePlay() {
-        loadingView.visibility = View.GONE
+        playStatus = 2
+        loadingStop()
+        btnAction.setImageResource(R.drawable.hk_pause)
     }
 
+
     private fun liveEnd() {
-        loadingView.visibility = View.GONE
-        QMUIDialog.MessageDialogBuilder(this).setMessage("直播结束......")
+        playStatus = 3
+        loadingStop()
+        btnAction.setImageResource(R.drawable.hk_replay)
+        QMUIDialog.MessageDialogBuilder(this).setMessage("PLAYBACK......")
             .addAction("Ok") { _, _ ->
                 onBackPressed()
             }.create().apply {

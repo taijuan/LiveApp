@@ -3,11 +3,14 @@ package com.live
 import android.Manifest
 import android.os.Bundle
 import com.live.base.BaseActivity
+import com.live.utils.logE
 import com.live.utils.pushAndPop
+import com.live.viewmodel.getUser
 import com.taijuan.permission.request
 
 
 class WelcomeActivity : BaseActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
@@ -29,7 +32,17 @@ class WelcomeActivity : BaseActivity() {
 
     private fun start() {
         window.decorView.postDelayed({
-            pushAndPop(SignInActivity::class.java)
+            checkLoginState()
         }, 2000)
+    }
+
+    private fun checkLoginState() {
+        val user = getUser()
+        user.logE()
+        if (user.id.isNullOrEmpty()) {
+            pushAndPop(SignInActivity::class.java)
+        } else {
+            pushAndPop(HomeActivity::class.java)
+        }
     }
 }

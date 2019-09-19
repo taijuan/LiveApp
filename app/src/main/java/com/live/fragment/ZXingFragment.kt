@@ -5,16 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.live.R
 import kotlinx.android.synthetic.main.fragment_zxing.*
 
+typealias OnCallback = (String) -> Unit
+
 class ZXingFragment : Fragment(), QRCodeView.Delegate {
+    private lateinit var onCallback: OnCallback
+    fun setOnCallback(onCallback: OnCallback) {
+        this.onCallback = onCallback
+    }
+
     override fun onScanQRCodeSuccess(result: String?) {
         Toast.makeText(context, result, Toast.LENGTH_LONG).show()
+        this.onCallback.invoke(result ?: "")
     }
 
     override fun onCameraAmbientBrightnessChanged(isDark: Boolean) {
@@ -62,12 +70,14 @@ fun FragmentActivity.getZxFragment(): ZXingFragment {
     return fragment as ZXingFragment
 }
 
-fun FragmentActivity.requestZXing(@IdRes containerViewId: Int = android.R.id.content) {
+fun FragmentActivity.requestZXing(onCallback: OnCallback) {
     val fragment = getZxFragment()
+    fragment.setOnCallback(onCallback)
     if (!fragment.isAdded) {
         supportFragmentManager
             .beginTransaction()
-            .add(containerViewId, fragment, ZXingFragment::class.java.name)
+            .add(android.R.id.content, fragment, ZXingFragment::class.java.name)
+            .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commitNow()
     }
 }
@@ -77,7 +87,11 @@ fun FragmentActivity.onBackPressZxing(): Boolean {
     return if (!fragment.isAdded) {
         true
     } else {
-        supportFragmentManager.beginTransaction().remove(fragment).commitNow()
+        supportFragmentManager
+            .beginTransaction()
+            .remove(fragment)
+            .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            .commitNow()
         false
     }
 }

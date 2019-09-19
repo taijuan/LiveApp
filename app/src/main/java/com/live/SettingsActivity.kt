@@ -7,6 +7,7 @@ import com.live.base.title
 import com.live.utils.exitApp
 import com.live.utils.onClick
 import com.live.utils.push
+import com.live.viewmodel.clearUser
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : BaseActivity() {
@@ -25,6 +26,7 @@ class SettingsActivity : BaseActivity() {
             push(LiveOptionsActivity::class.java)
         })
         btnLogOut.onClick({
+            clearUser()
             exitApp()
         })
     }

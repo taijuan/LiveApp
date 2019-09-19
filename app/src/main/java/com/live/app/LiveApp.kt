@@ -7,10 +7,10 @@ import com.live.utils.logE
 import com.live.utils.setLogDebug
 
 @Keep
-lateinit var app: App
+lateinit var app: LiveApp
 
 @Keep
-class App : Application() {
+class LiveApp : Application() {
 
     override fun onCreate() {
         app = this

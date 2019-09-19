@@ -11,6 +11,7 @@ import com.live.fragment.AllLiveFragment
 import com.live.fragment.MyLiveFragment
 import com.live.utils.logE
 import com.live.utils.onClick
+import com.live.utils.push
 import com.live.widget.QMUMenuPopup
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import kotlinx.android.synthetic.main.activity_home.*
@@ -28,7 +29,7 @@ class HomeActivity : BaseActivity() {
         topBar.addLeftImageButton(R.drawable.hk_home, R.integer.id_home).onClick({
             drawer.openDrawer(GravityCompat.START, true)
         })
-        topBar.add()?.onClick({
+        topBar.add().onClick({
             QMUMenuPopup(this).apply {
                 create()
                 show(popAnchorView)
@@ -49,6 +50,7 @@ class HomeActivity : BaseActivity() {
         tabHome.setupWithViewPager(viewPager)
         tabHome.getTabAt(0)?.setCustomView(R.layout.view_tab_left)
         tabHome.getTabAt(1)?.setCustomView(R.layout.view_tab_right)
+        push(LivePlayActivity::class.java)
     }
 
     /**

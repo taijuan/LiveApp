@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -14,7 +15,7 @@
         <TextureView
                 android:id="@+id/playerView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center" />
     </com.live.widget.AspectRatioFrameLayout>
 
@@ -28,15 +29,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/hk_play_back"
+                    android:drawablePadding="8dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="60dp"
+                    android:textColor="@color/textWhite"
+                    android:textSize="18sp" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+                    android:id="@+id/btnShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:drawableEnd="@drawable/hk_share"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:scaleType="fitCenter"
+                    app:qmui_border_width="0dp"
+                    app:qmui_corner_radius="0dp" />
+        </com.qmuiteam.qmui.widget.QMUITopBarLayout>
+
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                android:id="@+id/btnAction"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/hk_loading"
                 android:visibility="gone" />
 
-        <com.qmuiteam.qmui.widget.QMUILoadingView
-                android:id="@+id/loadingView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:color="@color/textBlue"
-                android:visibility="visible"
-                app:qmui_loading_view_size="48dp" />
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 </merge>

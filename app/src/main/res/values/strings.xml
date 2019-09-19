@@ -90,5 +90,18 @@
     <string name="url">URL</string>
     <string name="open_network">Open Network</string>
     <string name="new_str">New</string>
+    <string name="regex_password">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-</string>
+    <string name="live">Live</string>
+    <string name="playback">Playback</string>
+    <string name="pending">Pending</string>
+    <string name="cancel">Cancel</string>
+    <string name="facebook">Facebook</string>
+    <string name="moments">Moments</string>
+    <string name="wechat">Wechat</string>
+    <string name="snapchat">Snapchat</string>
+    <string name="instagram">Instagram</string>
+    <string name="google_plus">Google+</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="twitter">Twitter</string>
 
 </resources>

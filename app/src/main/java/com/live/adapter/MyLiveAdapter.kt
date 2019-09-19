@@ -4,10 +4,11 @@ import android.Manifest
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.live.LiveOptionsActivity
 import com.live.PushLiveActivity
 import com.live.R
-import com.live.model.LiveData
+import com.live.VideoPlayActivity
+import com.live.model.LiveDataRes
+import com.live.model.LiveStatus
 import com.live.utils.loadImageCenterCrop
 import com.live.utils.onClick
 import com.live.utils.push
@@ -16,14 +17,14 @@ import com.taijuan.permission.request
 import kotlinx.android.synthetic.main.view_holder_my_live.view.*
 
 class MyLiveAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val data = ArrayList<LiveData>()
-    fun refresh(data: List<LiveData>) {
+    private val data = ArrayList<LiveDataRes>()
+    fun refresh(data: List<LiveDataRes>) {
         this.data.clear()
         this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun loadMore(data: List<LiveData>) {
+    fun loadMore(data: List<LiveDataRes>) {
         val positionStart = this.data.size
         val itemCount = data.size
         this.data.addAll(data)
@@ -59,39 +60,42 @@ class MyLiveHolder(parent: ViewGroup) :
             false
         )
     ) {
-    private lateinit var data: LiveData
-    fun setData(data: LiveData) {
+    private lateinit var data: LiveDataRes
+    fun setData(data: LiveDataRes) {
         this.data = data
-        itemView.imgCover.loadImageCenterCrop(data.imgUrl)
+        itemView.imgCover.loadImageCenterCrop(data.coverImg)
         itemView.tvTitle.text = data.title
-        itemView.tvEvent.text = itemView.resources.getString(R.string.event_xxx, data.event)
-        itemView.tvSession.text = itemView.resources.getString(R.string.session_xxx, data.session)
-        itemView.tvDate.text = data.date
-        itemView.tvTime.text = data.time
+        itemView.tvDes.text = data.desc
+        itemView.tvTime.text = data.endTime
     }
 
     init {
         itemView.btnQrCode.onClick({
 
         })
-        itemView.btnOptions.onClick({
-            itemView.push(LiveOptionsActivity::class.java)
-        })
         itemView.btnGo.setChangeAlphaWhenPress(true)
         itemView.btnGo.onClick({
-            itemView.request(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_PHONE_STATE,
-                onGranted = {
-                    itemView.push(PushLiveActivity::class.java)
-                }, onDenied = { _, _ ->
-                    pushToSettings()
-                }, onNeverAskAgain = { _, _ ->
-                    pushToSettings()
-                })
+            when (data.status()) {
+                LiveStatus.PENDING -> {
+                    itemView.request(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_PHONE_STATE,
+                        onGranted = {
+                            itemView.push(PushLiveActivity::class.java)
+                        }, onDenied = { _, _ ->
+                            pushToSettings()
+                        }, onNeverAskAgain = { _, _ ->
+                            pushToSettings()
+                        })
+                }
+                else -> {
+                    itemView.push(VideoPlayActivity::class.java)
+                }
+            }
+
         })
     }
 

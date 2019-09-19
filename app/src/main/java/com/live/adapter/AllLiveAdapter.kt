@@ -5,21 +5,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.LivePlayActivity
 import com.live.R
-import com.live.model.LiveData
+import com.live.VideoPlayActivity
+import com.live.model.LiveDataRes
+import com.live.model.LiveStatus
 import com.live.utils.loadImageCenterCrop
 import com.live.utils.onClick
 import com.live.utils.push
+import com.live.utils.showToast
 import kotlinx.android.synthetic.main.view_holder_all_live.view.*
 
 class AllLiveAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val data = ArrayList<LiveData>()
-    fun refresh(data: List<LiveData>) {
+    private val data = ArrayList<LiveDataRes>()
+    fun refresh(data: List<LiveDataRes>) {
         this.data.clear()
         this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun loadMore(data: List<LiveData>) {
+    fun loadMore(data: List<LiveDataRes>) {
         val positionStart = this.data.size
         val itemCount = data.size
         this.data.addAll(data)
@@ -54,17 +57,41 @@ class AllLiveHolder(parent: ViewGroup) :
             false
         )
     ) {
-    private lateinit var data: LiveData
-    fun setData(data: LiveData) {
+    private lateinit var data: LiveDataRes
+    fun setData(data: LiveDataRes) {
         this.data = data
-        itemView.imgCover.loadImageCenterCrop(data.imgUrl)
+        itemView.imgCover.loadImageCenterCrop(data.coverImg)
         itemView.tvTitle.text = data.title
-        itemView.tvTime.text = data.time
+        itemView.tvTime.text = data.createTime
+        when (data.status()) {
+            LiveStatus.PENDING -> {
+                itemView.tvStatus.setText(R.string.pending)
+                itemView.tvStatus.setBackgroundResource(R.color.backgroundRed)
+            }
+            LiveStatus.LIVING -> {
+                itemView.tvStatus.setText(R.string.live)
+                itemView.tvStatus.setBackgroundResource(R.color.backgroundBlue)
+            }
+            LiveStatus.PLAYBACK -> {
+                itemView.tvStatus.setText(R.string.playback)
+                itemView.tvStatus.setBackgroundResource(R.color.backgroundBlue)
+            }
+        }
     }
 
     init {
         itemView.btnStart.onClick({
-            itemView.push(LivePlayActivity::class.java)
+            when (data.status()) {
+                LiveStatus.PENDING -> {
+                    "直播未开始".showToast()
+                }
+                LiveStatus.LIVING -> {
+                    itemView.push(LivePlayActivity::class.java)
+                }
+                LiveStatus.PLAYBACK -> {
+                    itemView.push(VideoPlayActivity::class.java)
+                }
+            }
         })
     }
 

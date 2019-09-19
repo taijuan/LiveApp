@@ -40,108 +40,45 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/imgCover" />
 
+
     <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvEvent"
-            android:layout_width="0dp"
-            android:layout_height="17dp"
+            android:id="@+id/tvDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
-            android:fontFamily="@font/lato_regular"
-            android:lines="1"
-            android:text="@string/event_xxx"
-            android:textColor="@color/textBlack"
-            android:textSize="12sp"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/imgTime"
-            app:layout_constraintTop_toTopOf="@+id/imgTime" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvSession"
-            android:layout_width="0dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/lato_regular"
-            android:lines="1"
-            android:text="@string/session_xxx"
-            android:textColor="@color/textBlack"
-            android:textSize="12sp"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/imgTime"
-            app:layout_constraintTop_toBottomOf="@+id/tvEvent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgTime"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/hk_time"
-            app:layout_constraintLeft_toRightOf="@+id/tvEvent"
-            app:layout_constraintRight_toLeftOf="@+id/tvTime"
-            app:layout_constraintTop_toBottomOf="@+id/imgCover"
-            app:tint="@color/textBlack" />
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvDate"
-            android:layout_width="0dp"
-            android:layout_height="17dp"
-            android:fontFamily="@font/lato_regular"
+            android:fontFamily="@font/lato_bold"
             android:gravity="center_vertical"
-            android:lines="1"
-            android:text="@string/live_time_format"
+            android:lines="2"
             android:textColor="@color/textBlack"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgTime"
-            app:layout_constraintLeft_toLeftOf="@+id/tvTime"
-            app:layout_constraintRight_toRightOf="@id/tvTime"
-            app:layout_constraintTop_toTopOf="@+id/imgTime" />
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@+id/imgCover" />
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/lato_regular"
-            android:lines="1"
-            android:text="@string/live_time_format"
-            android:textColor="@color/textBlack"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSession"
-            app:layout_constraintLeft_toRightOf="@+id/imgTime"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvSession" />
-
-    <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
-            android:id="@+id/btnOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="20dp"
-            android:drawableStart="@drawable/hk_options"
+            android:drawableStart="@drawable/hk_time"
             android:drawablePadding="8dp"
             android:fontFamily="@font/lato_regular"
-            android:gravity="center_vertical"
-            android:text="@string/options"
-            android:textColor="@color/textBlack"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/textGray"
+            android:textSize="12sp"
+            app:drawableTint="@color/lineGray"
+            app:layout_constraintBottom_toBottomOf="@+id/btnGo"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSession" />
+            app:layout_constraintTop_toTopOf="@+id/btnGo" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/btnGo"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
             android:drawableStart="@drawable/hk_go"
             android:drawablePadding="8dp"
             android:fontFamily="@font/lato_regular"
@@ -150,8 +87,8 @@
             android:text="@string/go"
             android:textColor="@color/textWhite"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnOptions"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnOptions"
+            app:layout_constraintTop_toBottomOf="@+id/tvDes"
             app:qmui_backgroundColor="@color/backgroundBlue" />
 </com.live.widget.QMUIConstraintLayout>
