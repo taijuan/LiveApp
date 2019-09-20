@@ -50,7 +50,7 @@ class HomeActivity : BaseActivity() {
         tabHome.setupWithViewPager(viewPager)
         tabHome.getTabAt(0)?.setCustomView(R.layout.view_tab_left)
         tabHome.getTabAt(1)?.setCustomView(R.layout.view_tab_right)
-        push(LivePlayActivity::class.java)
+//        push(LivePlayActivity::class.java)
     }
 
     /**
