@@ -4,15 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.alivc.live.pusher.AlivcPreviewOrientationEnum
 import com.live.PushLiveActivity
 import com.live.R
 import com.live.base.BaseFragment
+import com.live.utils.HandlerUtils
+import com.live.utils.logE
 import com.live.utils.onClick
 import com.live.utils.pop
 import kotlinx.android.synthetic.main.push_live_port_controller.*
 
 class PushLivePortFragment : BaseFragment() {
+    private val handlerUtils: HandlerUtils by lazy {
+        HandlerUtils(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,22 +26,39 @@ class PushLivePortFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnSwitchScreen.onClick({
-            (activity as PushLiveActivity).setOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT)
-        })
-        btnAction.onClick({
-            (activity as PushLiveActivity).startLive()
-        })
-        btnSwitchCamera.onClick({
-            (activity as PushLiveActivity).switchCamera {
-                btnFlash.visibility = if (it) View.VISIBLE else View.GONE
-            }
-        })
-        btnFlash.onClick({
-            (activity as PushLiveActivity).switchFlash()
-        })
-        btnClose.onClick({
-            (activity as PushLiveActivity).pop()
-        })
+        (activity as PushLiveActivity).run {
+            btnX1.onClick({
+                setZoom()
+            })
+            btnAction.setImageResource(if (isStartLive()) R.drawable.hk_push_live_stop else R.drawable.hk_push_live_start)
+            btnAction.onClick({
+                switchLive {
+                    btnAction.setImageResource(if (it) R.drawable.hk_push_live_stop else R.drawable.hk_push_live_start)
+                }
+            })
+            btnSwitchCamera.onClick({
+                switchCamera {
+                    btnFlash.visibility = if (it) View.VISIBLE else View.GONE
+                }
+            })
+            btnFlash.visibility =
+                if (isSupportFlash()) View.VISIBLE else View.GONE
+            btnFlash.onClick({
+                switchFlash()
+            })
+            btnClose.onClick({
+                pop()
+            })
+            tvDestination.text = "深圳"
+            timeText()
+        }
+    }
+
+    private fun PushLiveActivity.timeText() {
+        time().logE()
+        handlerUtils.postDelayed({
+            tvTime?.text = time()
+            timeText()
+        }, 1000)
     }
 }

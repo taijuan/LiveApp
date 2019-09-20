@@ -1,18 +1,23 @@
 package com.live.adapter
 
 import android.Manifest
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.live.ORIENTATION_KEY
 import com.live.PushLiveActivity
 import com.live.R
 import com.live.VideoPlayActivity
+import com.live.app.app
 import com.live.model.LiveDataRes
 import com.live.model.LiveStatus
 import com.live.utils.loadImageCenterCrop
 import com.live.utils.onClick
 import com.live.utils.push
 import com.live.utils.pushToSettings
+import com.lxj.xpopup.XPopup
+import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.taijuan.permission.request
 import kotlinx.android.synthetic.main.view_holder_my_live.view.*
 
@@ -84,7 +89,7 @@ class MyLiveHolder(parent: ViewGroup) :
                         Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.READ_PHONE_STATE,
                         onGranted = {
-                            itemView.push(PushLiveActivity::class.java)
+                            showSwitchScreenDialog()
                         }, onDenied = { _, _ ->
                             pushToSettings()
                         }, onNeverAskAgain = { _, _ ->
@@ -97,6 +102,20 @@ class MyLiveHolder(parent: ViewGroup) :
             }
 
         })
+    }
+
+    private fun showSwitchScreenDialog() {
+        XPopup.Builder(itemView.context).asCenterList(
+            "直播横竖屏选择",
+            arrayOf("Portrait", "Landscape Home Right", "Landscape Home Left")
+        ) { index, _ ->
+            itemView.push(PushLiveActivity::class.java, Bundle().apply {
+                putInt(ORIENTATION_KEY, index)
+            })
+        }.apply {
+            minimumWidth = QMUIDisplayHelper.dp2px(app, 320)
+            show()
+        }
     }
 
 }

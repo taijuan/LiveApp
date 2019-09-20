@@ -113,16 +113,19 @@
         <activity
                 android:name=".VideoPlayActivity"
                 android:configChanges="orientation|screenSize|keyboardHidden"
+                android:keepScreenOn="true"
                 android:screenOrientation="portrait"
                 android:theme="@style/BlackBackgroundTheme" />
         <activity
                 android:name=".PushLiveActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
+                android:keepScreenOn="true"
                 android:screenOrientation="portrait"
                 android:theme="@style/GrayBackgroundTheme" />
         <activity
                 android:name=".LivePlayActivity"
                 android:configChanges="orientation|screenSize|keyboardHidden"
+                android:keepScreenOn="true"
                 android:screenOrientation="portrait"
                 android:theme="@style/BlackBackgroundTheme" />
         <activity

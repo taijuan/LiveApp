@@ -12,7 +12,7 @@ import com.live.base.title
 import com.live.utils.onClick
 import kotlinx.android.synthetic.main.activity_camera_style.*
 
-const val ORIENTATION_KEY = "orientation_key"
+//const val ORIENTATION_KEY = "orientation_key"
 const val CAMERA_ID = "camera_id"
 const val CAMERA_STYLE_REQUEST_CODE = 1001
 

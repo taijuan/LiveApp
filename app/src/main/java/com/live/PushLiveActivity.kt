@@ -1,9 +1,7 @@
 package com.live
 
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
 import android.view.Surface
 import android.view.SurfaceHolder
 import com.alivc.component.custom.AlivcLivePushCustomDetect
@@ -11,39 +9,68 @@ import com.alivc.component.custom.AlivcLivePushCustomFilter
 import com.alivc.live.detect.TaoFaceFilter
 import com.alivc.live.filter.TaoBeautyFilter
 import com.alivc.live.pusher.*
+import com.google.android.exoplayer2.C
 import com.live.app.app
 import com.live.base.BaseActivity
 import com.live.fragment.PushLiveLandFragment
 import com.live.fragment.PushLivePortFragment
+import com.live.utils.HandlerUtils
 import com.live.utils.logE
 import com.live.utils.logT
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.lxj.xpopup.XPopup
 import kotlinx.android.synthetic.main.activity_push_live.*
 
-class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
+const val ORIENTATION_KEY = "orientation_key"
+
+
+class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback,
     AlivcLivePushNetworkListener {
 
-    private val handler = Handler()
     private val pusher: AlivcLivePusher = AlivcLivePusher()
     private var isFlash = false
+    private val pushConfig: AlivcLivePushConfig by lazy {
+        AlivcLivePushConfig().apply {
+            setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT)
+            previewDisplayMode = AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL
+            setCameraType(AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT)
+            setResolution(AlivcResolutionEnum.RESOLUTION_SELFDEFINE)
+            qualityMode = AlivcQualityModeEnum.QM_RESOLUTION_FIRST
+            beautyLevel = AlivcBeautyLevelEnum.BEAUTY_Normal
+            setAutoFocus(true)
+            requestedOrientation = when (intent.getIntExtra(
+                ORIENTATION_KEY,
+                AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT.ordinal
+            )) {
+                AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.ordinal -> {
+                    setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT)
+                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                }
+                AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.ordinal -> {
+                    setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT)
+                    ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+                }
+                else -> {
+                    setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT)
+                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                }
+            }
+        }
+    }
+    private var zoom = 0
+    private var zoomAction = true
+    private var isStartLive = false
+    private var time = 0L
+    private val handlerUtils: HandlerUtils by lazy {
+        HandlerUtils(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_push_live)
-        pusher.init(this, getPushConfig())
+        timePlus()
+        pusher.init(this, pushConfig)
         pusher.setLivePushNetworkListener(this)
         pushView.holder.addCallback(this)
-
-//        btnStartPush.onClick({
-//            startLive()
-//        }, 1000)
-//        btnStopPush.onClick({
-//            try {
-//                pusher.stopPush()
-//            } catch (e: Exception) {
-//                e.logT()
-//            }
-//        }, 1000)
-
         pusher.setCustomDetect(object : AlivcLivePushCustomDetect {
             private val taoFaceFilter: TaoFaceFilter = TaoFaceFilter(app)
             override fun customDetectCreate() {
@@ -122,8 +149,6 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
                 taoBeautyFilter.customFilterDestroy()
             }
         })
-
-        replaceFragment()
     }
 
     fun switchFlash() {
@@ -131,86 +156,117 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
         pusher.setFlash(isFlash)
     }
 
+    fun isSupportFlash() =
+        pushConfig.cameraType == AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.cameraId
+
     fun switchCamera(onDone: (Boolean) -> Unit) {
+        pushConfig.cameraType.logE()
         try {
+            isFlash = false
+            pusher.setFlash(false)
             pusher.switchCamera()
         } catch (e: Exception) {
             e.logT()
         } finally {
-            onDone.invoke(!pusher.isCameraSupportFlash)
+            onDone.invoke(pushConfig.cameraType == AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK.cameraId)
+            pushConfig.cameraType.logE()
         }
     }
 
-    fun startLive() {
-        try {
-            pusher.startPushAysnc("rtmp://push.cdhker.com/test0806/test06?auth_key=1565082602000-0-0-1bf369caf6b774c961359ce39a61cca7")
-        } catch (e: Exception) {
-            e.logT()
-            try {
-                pusher.restartPushAync()
+    fun isStartLive() = isStartLive
+    fun switchLive(onDone: (Boolean) -> Unit) {
+        if (!isStartLive)
+            isStartLive = try {
+                pusher.startPushAysnc("rtmp://push.cdhker.com/test0806/test06?auth_key=1565082602000-0-0-1bf369caf6b774c961359ce39a61cca7")
+                true
             } catch (e: Exception) {
                 e.logT()
+                try {
+                    pusher.restartPushAync()
+                    true
+                } catch (e: Exception) {
+                    e.logT()
+                    false
+                }
+            } else {
+            try {
+                pusher.stopPush()
+                isStartLive = false
+            } catch (e: Exception) {
+                e.logE()
             }
         }
+        onDone.invoke(isStartLive)
+    }
+
+    private fun getStringForTime(timeMs: Long): String {
+        var ms = timeMs
+        if (ms == C.TIME_UNSET) {
+            ms = 0
+        }
+        val totalSeconds = (ms + 500) / 1000
+        val seconds = totalSeconds % 60
+        val minutes = totalSeconds / 60 % 60
+        val hours = totalSeconds / 3600
+        return String.format("%d:%02d:%02d", hours, minutes, seconds)
+
+    }
+
+    fun time(): String {
+        time.logE()
+        return getStringForTime(time)
+    }
+
+    private fun timePlus() {
+        handlerUtils.postDelayed({
+            if (isStartLive) {
+                time += 1000
+            }
+            timePlus()
+        }, 1000)
     }
 
     private fun replaceFragment() {
         window.decorView.postDelayed({
-            try {
-                when (windowManager.defaultDisplay.rotation) {
-                    Surface.ROTATION_90 -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_controller, PushLiveLandFragment())
-                            .commitNow()
-                        pusher.setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT)
-                    }
-                    Surface.ROTATION_270 -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_controller, PushLiveLandFragment())
-                            .commitNow()
-                        pusher.setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT)
-                    }
-                    else -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_controller, PushLivePortFragment())
-                            .commitNow()
-                        pusher.setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT)
-                    }
+            when (windowManager.defaultDisplay.rotation) {
+                Surface.ROTATION_90 -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_controller, PushLiveLandFragment())
+                        .commitNow()
                 }
-            } catch (e: Exception) {
-                e.logT()
+                Surface.ROTATION_270 -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_controller, PushLiveLandFragment())
+                        .commitNow()
+                }
+                else -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_controller, PushLivePortFragment())
+                        .commitNow()
+                }
+
             }
         }, 100)
     }
 
-    private fun getPushConfig() = AlivcLivePushConfig().apply {
-        setPreviewOrientation(AlivcPreviewOrientationEnum.ORIENTATION_PORTRAIT)
-        previewDisplayMode = AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL
-        setCameraType(AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT)
-        setResolution(AlivcResolutionEnum.RESOLUTION_SELFDEFINE)
-        qualityMode = AlivcQualityModeEnum.QM_RESOLUTION_FIRST
-        beautyLevel = AlivcBeautyLevelEnum.BEAUTY_Normal
-        setAutoFocus(true)
-    }
 
-    fun setOrientation(orientationEnum: AlivcPreviewOrientationEnum) {
-        orientationEnum.logE("orientationEnum1212 = ")
-        requestedOrientation = when (orientationEnum) {
-            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT -> {
-                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            }
-            AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT -> {
-                ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
-            }
-            else -> {
-                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            }
+    fun setZoom() {
+        if (zoom == 11) {
+            zoomAction = false
         }
-    }
+        if (zoom == 0) {
+            zoomAction = true
+        }
+        if (zoomAction) {
+            zoom++
+        } else {
+            zoom--
+        }
+        pusher.setZoom(zoom * 9)
 
+    }
 
     override fun onDestroy() {
-        handler.removeCallbacksAndMessages(null)
         pushView.holder.removeCallback(this)
         try {
             pusher.stopPush()
@@ -240,6 +296,7 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
         height: Int
     ) {
         "width = $width ; height = $height".logE()
+        replaceFragment()
     }
 
     override fun surfaceDestroyed(surfaceHolder: SurfaceHolder?) {
@@ -251,32 +308,12 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
         try {
             if (pusher.currentStatus == AlivcLivePushStats.INIT) {
                 pusher.startPreviewAysnc(pushView)
-                checkPushStatusWhenSurfaceCreated()
-            } else {
-                pusher.pause()
-                pusher.resumeAsync()
             }
         } catch (e: Exception) {
             e.logT()
         }
     }
 
-    private fun checkPushStatusWhenSurfaceCreated() {
-        handler.postDelayed(this, 1000)
-    }
-
-    override fun run() {
-        handler.removeCallbacksAndMessages(null)
-//        "pusher.isNetworkPushing = ${pusher.isNetworkPushing}".logE()
-        if (pusher.isNetworkPushing) {
-//            btnStartPush.visibility = View.GONE
-//            btnStopPush.visibility = View.VISIBLE
-        } else {
-//            btnStartPush.visibility = View.VISIBLE
-//            btnStopPush.visibility = View.GONE
-        }
-        checkPushStatusWhenSurfaceCreated()
-    }
 
     override fun onNetworkPoor(pusher: AlivcLivePusher) {
         "网络差，请退出或者重连".logE()
@@ -293,7 +330,16 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
 
     override fun onReconnectFail(pusher: AlivcLivePusher) {
         "重连失败".logE()
-        showFailDialog()
+        try {
+            pusher.restartPushAync()
+        } catch (e: Exception) {
+            e.logE()
+            try {
+                pusher.restartPushAync()
+            } catch (e: Exception) {
+                e.logE()
+            }
+        }
     }
 
 
@@ -326,28 +372,16 @@ class PushLiveActivity : BaseActivity(), SurfaceHolder.Callback, Runnable,
         "推流丢包通知".logE()
     }
 
-    private fun showFailDialog() {
-        runOnUiThread {
-            QMUIDialog.MessageDialogBuilder(this)
-                .setTitle("直播重试")
-                .setMessage("网络异常，直播重连失败......")
-                .addAction("Ok") { dialog, _ ->
-                    try {
-                        pusher.restartPushAync()
-                    } catch (e: Exception) {
-                        e.logE()
-                    }
-                    dialog.dismiss()
-                }.create().apply {
-                    setCanceledOnTouchOutside(false)
-                    setCancelable(false)
-                    showWithImmersiveCheck()
-                }
+    override fun onBackPressed() {
+        if (isStartLive()) {
+            XPopup.Builder(this)
+                .dismissOnBackPressed(false)
+                .dismissOnTouchOutside(false)
+                .asConfirm("直播提示", "正在直播，请确认是否退出，退出将结束直播...") {
+                    super.onBackPressed()
+                }.show()
+        } else {
+            super.onBackPressed()
         }
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        replaceFragment()
     }
 }

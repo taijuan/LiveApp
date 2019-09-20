@@ -4,7 +4,6 @@ import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.SeekBar
 import com.google.android.exoplayer2.C
@@ -24,7 +23,10 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
     }
     private var playStatus = 0
     private var showBar = false
-    private val handler = Handler()
+    private val handler: HandlerUtils by lazy {
+        HandlerUtils(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_play)
@@ -117,7 +119,6 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
 
     override fun onDestroy() {
         loadingStop()
-        handler.removeCallbacksAndMessages(null)
         exoPlayer.removeVideoListener(this)
         exoPlayer.removeListener(this)
         playerView.videoClearVideoTextureView()

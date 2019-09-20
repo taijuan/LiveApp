@@ -64,7 +64,7 @@ class SendCodeToMailActivity : BaseActivity() {
 
     private fun shutDown() {
         btnCode.isEnabled = false
-        CountDownTimerUtils(lifecycle).apply {
+        CountDownTimerUtils(this).apply {
             setOnTick {
                 btnCode.text = String.format("%ds", it / 1000)
             }

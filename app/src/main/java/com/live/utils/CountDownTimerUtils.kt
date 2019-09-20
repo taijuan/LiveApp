@@ -3,10 +3,11 @@ package com.live.utils
 import android.os.CountDownTimer
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
 class CountDownTimerUtils(
-    lifecycle: Lifecycle,
+    owner: LifecycleOwner,
     totalTime: Long = 60 * 1000,
     interval: Long = 1000
 ) : CountDownTimer(totalTime, interval), LifecycleObserver {
@@ -14,7 +15,7 @@ class CountDownTimerUtils(
     private var onFinish: (() -> Unit)? = null
 
     init {
-        lifecycle.addObserver(this)
+        owner.lifecycle.addObserver(this)
     }
 
     fun setOnTick(onTick: (Long) -> Unit) {

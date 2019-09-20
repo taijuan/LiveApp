@@ -30,16 +30,6 @@
             android:layout_marginTop="42dp"
             android:src="@drawable/hk_push_live_flash"
             app:layout_constraintLeft_toRightOf="@+id/btnClose"
-            app:layout_constraintRight_toLeftOf="@+id/btnSwitchScreen"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
-            android:id="@+id/btnSwitchScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
-            android:src="@drawable/hk_push_live_switch_screen"
-            app:layout_constraintLeft_toRightOf="@+id/btnFlash"
             app:layout_constraintRight_toLeftOf="@+id/btnSwitchCamera"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +39,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
             android:src="@drawable/hk_push_live_switch_camera"
-            app:layout_constraintLeft_toRightOf="@+id/btnSwitchScreen"
+            app:layout_constraintLeft_toRightOf="@+id/btnFlash"
+            app:layout_constraintRight_toLeftOf="@+id/btnX1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+            android:id="@+id/btnX1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:src="@drawable/hk_push_live_x1"
+            app:layout_constraintLeft_toRightOf="@+id/btnSwitchCamera"
             app:layout_constraintRight_toLeftOf="@+id/btnSettings"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
             android:src="@drawable/hk_push_live_settings"
-            app:layout_constraintLeft_toRightOf="@+id/btnSwitchCamera"
+            app:layout_constraintLeft_toRightOf="@+id/btnX1"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
