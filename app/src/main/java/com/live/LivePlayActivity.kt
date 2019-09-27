@@ -17,7 +17,7 @@ import com.lxj.xpopup.core.BasePopupView
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import kotlinx.android.synthetic.main.activity_live_play.*
 
-
+const val PULL_DATA_URL = "pull_data-url"
 class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
     private val dialog: BasePopupView by lazy {
         XPopup.Builder(this)
@@ -57,7 +57,7 @@ class LivePlayActivity : BaseActivity(), VideoListener, Player.EventListener {
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
         playerView.videoSetVideoTextureView()
-        livePrepare("rtmp://pull.xingguitiyu.com/xgtylive/test091925?auth_key=1568888950-0-0-4d8af9be591dd5f1a3db393e5bdd764f")
+        livePrepare(intent.getStringExtra(PULL_DATA_URL)?:"")
         controller.onClick({
             showBar()
         })

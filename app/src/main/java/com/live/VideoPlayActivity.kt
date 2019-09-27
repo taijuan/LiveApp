@@ -15,7 +15,7 @@ import com.live.widget.RESIZE_MODE_FIT
 import com.live.widget.createShareDialog
 import kotlinx.android.synthetic.main.activity_video_play.*
 
-
+const val PLAYBACK_DATA_URL = "playback_data-url"
 class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
     SeekBar.OnSeekBarChangeListener {
     private val loadingDrawable: AnimationDrawable by lazy {
@@ -44,7 +44,7 @@ class VideoPlayActivity : BaseActivity(), VideoListener, Player.EventListener,
         exoPlayer.addVideoListener(this)
         exoPlayer.addListener(this)
         playerView.videoSetVideoTextureView()
-        videoPrepare("http://1252065688.vod2.myqcloud.com/d7dc3e4avodgzp1252065688/442c05395285890792586288323/hjRqKBsrAT4A.mov")
+        videoPrepare(intent.getStringExtra(PULL_DATA_URL)?:"")
         controller.onClick({
             showBar()
         })

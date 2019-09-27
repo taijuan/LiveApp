@@ -10,8 +10,8 @@ data class LiveDataRes(
     val desc: String,
     val endTime: String,
     val liveStatus: Any,
-    val playbackUrl: Any,
-    val pullUrl: Any,
+    val playbackUrl: Content,
+    val pullUrl: Content,
     val pushUrl: String,
     val streamName: String,
     val title: String
@@ -27,4 +27,12 @@ data class LiveDataRes(
         LiveStatus.PENDING
     }
 
+    fun getPullUrl() = pullUrl.content.last().url
+
+    fun getPlaybackUrl() = playbackUrl.content.last().url
+
 }
+
+class Content(val content: List<DataUrl>)
+
+class DataUrl(val url: String)

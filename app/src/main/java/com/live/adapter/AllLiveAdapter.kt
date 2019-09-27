@@ -1,11 +1,10 @@
 package com.live.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.live.LivePlayActivity
-import com.live.R
-import com.live.VideoPlayActivity
+import com.live.*
 import com.live.model.LiveDataRes
 import com.live.model.LiveStatus
 import com.live.utils.loadImageCenterCrop
@@ -86,10 +85,14 @@ class AllLiveHolder(parent: ViewGroup) :
                     "直播未开始".showToast()
                 }
                 LiveStatus.LIVING -> {
-                    itemView.push(LivePlayActivity::class.java)
+                    itemView.push(LivePlayActivity::class.java, Bundle().apply {
+                        putString(PULL_DATA_URL, data.getPullUrl())
+                    })
                 }
                 LiveStatus.PLAYBACK -> {
-                    itemView.push(VideoPlayActivity::class.java)
+                    itemView.push(VideoPlayActivity::class.java,Bundle().apply {
+                        putString(PLAYBACK_DATA_URL, data.getPullUrl())
+                    })
                 }
             }
         })
